@@ -21,9 +21,7 @@ public class Sync extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		this.version = this.getDescription().getVersion();
-		//this.getServer().getServicesManager().register(PermissionManager.class, this.permissionsManager, this, ServicePriority.Normal);
-		this.getServer().getServicesManager().register(Sync.class, this, this, ServicePriority.Normal);
+		version = this.getDescription().getVersion();
 		log.info(prefix + " Sync Version " + version + " loaded successfully.");
 	}
 	
