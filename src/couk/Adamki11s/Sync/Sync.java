@@ -8,16 +8,17 @@ public class Sync extends JavaPlugin {
 	
 	private Logger log = Logger.getLogger("Sync");
 	private String version;
+	private final String prefix = "[Sync]";
 
 	@Override
 	public void onDisable() {
-		log.info("[Sync] Sync Version " + version + " un-loaded successfully.");
+		log.info(prefix + " Sync Version " + version + " un-loaded successfully.");
 	}
 
 	@Override
 	public void onEnable() {
 		this.version = this.getDescription().getVersion();
-		log.info("[Sync] Sync Version " + version + " loaded successfully.");
+		log.info(prefix + " Sync Version " + version + " loaded successfully.");
 	}
 
 }
