@@ -3,9 +3,9 @@ package couk.Adamki11s.IO;
 import java.io.File;
 import java.util.HashMap;
 
-public class LocationIOStream extends IOStream {
+public class EncryptedIOStream extends IOStream {
 
-	public LocationIOStream(File f) {
+	public EncryptedIOStream(File f) {
 		super(f);
 	}
 	
@@ -39,6 +39,6 @@ public class LocationIOStream extends IOStream {
 	
 	public void read(){
 		super.read();
-	}		
+	}
 
 }

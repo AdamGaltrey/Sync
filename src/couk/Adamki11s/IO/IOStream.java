@@ -10,10 +10,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.World;
-
 import couk.Adamki11s.Sync.Sync;
 
 public class IOStream {
@@ -26,6 +22,33 @@ public class IOStream {
 		this.f = f;
 	}
 
+	public void add(String key, Object data){
+		this.data.put(key, data);
+	}
+	
+	public void remove(String key){
+		if(contains(key)){
+			this.data.remove(key);
+		}
+	}
+	
+	public boolean contains(String key){
+		return this.data.containsKey(key);
+	}
+	
+	public void modify(String key, Object newValue){
+		if(contains(key)){
+			data.put(key, newValue);
+		}
+	}
+	
+	public void erase(){
+		this.data.clear();
+	}
+	
+	public HashMap<String, Object> getData(){
+		return this.data;
+	}
 	
 	/**
 	 * Writes all data to the file.
@@ -62,21 +85,6 @@ public class IOStream {
 		} catch (IOException iox) {
 			iox.printStackTrace();
 		}
-	}
-	
-	/**
-	 * Erases all data from the HashMap storage.
-	 */
-	public void erase(){
-		this.data.clear();
-	}
-	
-	/**
-	 * 
-	 * @return The HashMap containing all key data and their respective values.
-	 */
-	public HashMap<String, Object> getData(){
-		return this.data;
 	}
 
 }
