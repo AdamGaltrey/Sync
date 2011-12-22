@@ -75,34 +75,11 @@ public class IOStream {
 	}
 	
 	public void write() {
-		try {
-			FileWriter fstream = new FileWriter(this.f);
-			BufferedWriter fbw = new BufferedWriter(fstream);
-			fbw.write("Generated Using Sync, Version " + Sync.version + ". Author : Adamki11s");
-			for (Entry<String, Object> entry : this.data.entrySet()) {
-				fbw.newLine();
-				fbw.write(entry.getKey().trim() + ":" + entry.getValue().toString().trim());
-			}
-			fbw.flush();
-			fbw.close();
-		} catch (IOException iox) {
-			iox.printStackTrace();
-		}
+		GenericIO.write(this.f, this.data);
 	}
 
 	public void read() {
-		try {
-			FileInputStream in = new FileInputStream(this.f);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			while ((strLine = br.readLine()) != null) {
-				String[] property = strLine.split(":");
-				this.data.put(property[0], property[1]);
-			}
-			in.close();
-		} catch (IOException iox) {
-			iox.printStackTrace();
-		}
+		this.data = GenericIO.read(this.f);
 	}
 
 }

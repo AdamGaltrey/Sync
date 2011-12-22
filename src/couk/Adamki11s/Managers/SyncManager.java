@@ -13,6 +13,10 @@ public class SyncManager {
 	
 	public SyncManager(Plugin plugin){
 		this.plugin = plugin;
+		this.cacheManager = new CacheManager(this);
+		this.ioManager = new IOManager(this);
+		this.sqlManager = new SQLManager(this);
+		this.webManager = new WebManager(this);
 	}
 
 	public Plugin getPlugin() {
@@ -23,7 +27,7 @@ public class SyncManager {
 		return cacheManager;
 	}
 
-	public IOManager getIoManager() {
+	public IOManager getIOManager() {
 		return ioManager;
 	}
 
