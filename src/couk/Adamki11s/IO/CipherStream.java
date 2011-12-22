@@ -11,13 +11,14 @@ import javax.crypto.spec.PBEParameterSpec;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-class CipherStream extends IOStream {
+class CipherStream extends EncryptedIOStream {
 
 	char[] PASSWORD;
 	private static final byte[] SALT = { (byte) 0xde, (byte) 0x33, (byte) 0x10, (byte) 0x12, (byte) 0xde, (byte) 0x33, (byte) 0x10, (byte) 0x12, };
 
-	public CipherStream(File f) {
-		super(f);
+	public CipherStream(File f, String password) {
+		super(f, password);
+		this.PASSWORD = password.toCharArray();
 	}
 	
 	public void setPassword(String password){

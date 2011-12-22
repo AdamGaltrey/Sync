@@ -4,9 +4,12 @@ import java.io.File;
 import java.util.HashMap;
 
 public class EncryptedIOStream extends IOStream {
+	
+	CipherStream cipherStream;
 
-	public EncryptedIOStream(File f) {
+	public EncryptedIOStream(File f, String password) {
 		super(f);
+		this.cipherStream = new CipherStream(f, password);
 	}
 	
 	public void add(String key, Object data){
