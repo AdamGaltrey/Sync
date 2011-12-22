@@ -6,9 +6,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Sync extends JavaPlugin {
 	
-	private Logger log = Logger.getLogger("Sync");
-	private String version;
-	private final String prefix = "[Sync]";
+	public static Logger log = Logger.getLogger("Sync");
+	public static String version;
+	public static final String prefix = "[Sync]";
 
 	@Override
 	public void onDisable() {
