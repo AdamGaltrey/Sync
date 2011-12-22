@@ -2,46 +2,35 @@ package couk.Adamki11s.IO;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class EncryptedIOStream extends IOStream {
-	
+
 	CipherStream cipherStream;
 
 	public EncryptedIOStream(File f, String password) {
 		super(f);
 		this.cipherStream = new CipherStream(f, password);
 	}
-	
-	public void add(String key, Object data){
-		super.add(key, data);
-	}
-	
-	public void remove(String key){
-		super.remove(key);
-	}
-	
-	public boolean contains(String key){
-		return super.contains(key);
-	}
-	
-	public void modify(String key, Object newValue){
-		super.modify(key, newValue);
-	}
-	
-	public void erase(){
-		super.erase();
-	}
-	
-	public HashMap<String, Object> getData(){
-		return super.getData();
-	}
-	
-	public void write(){
+
+	@Override
+	public void write() {
+		HashMap<String, Object> newSet = new HashMap<String, Object>();
+		for (Entry<String, Object> map : super.getData().entrySet()) {
+			newSet.put(this.cipherStream.encrypt(map.getKey().toString()), this.cipherStream.encrypt(map.getValue().toString()));
+		}
+		super.setData(newSet);
 		super.write();
 	}
-	
-	public void read(){
+
+	@Override
+	public void read() {
 		super.read();
+		HashMap<String, Object> newSet = new HashMap<String, Object>();
+		for (Entry<String, Object> map : super.getData().entrySet()) {
+			newSet.put(this.cipherStream.decrypt(map.getKey().toString()), this.cipherStream.decrypt(map.getValue().toString()));
+		}
+		super.setData(newSet);
 	}
 
 }

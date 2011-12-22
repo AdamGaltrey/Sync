@@ -50,9 +50,30 @@ public class IOStream {
 		return this.data;
 	}
 	
-	/**
-	 * Writes all data to the file.
-	 */
+	public void setData(HashMap<String, Object> dataSet){
+		this.data = dataSet;
+	}
+	
+	public Object getObject(String key){
+		return this.data.get(key);
+	}
+	
+	public String getString(String key){
+		return getObject(key).toString();
+	}
+	
+	public int getInt(String key){
+		return Integer.parseInt(getString(key));
+	}
+	
+	public double getDouble(String key){
+		return Double.parseDouble(getString(key));
+	}
+	
+	public boolean getBoolean(String key){
+		return Boolean.parseBoolean(getString(key));
+	}
+	
 	public void write() {
 		try {
 			FileWriter fstream = new FileWriter(this.f);
@@ -69,9 +90,6 @@ public class IOStream {
 		}
 	}
 
-	/**
-	 * Reads all data from the file.
-	 */
 	public void read() {
 		try {
 			FileInputStream in = new FileInputStream(this.f);
