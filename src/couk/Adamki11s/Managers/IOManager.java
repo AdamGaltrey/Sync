@@ -2,7 +2,7 @@ package couk.Adamki11s.Managers;
 
 import java.io.File;
 
-import couk.Adamki11s.Data.IOStream;
+import couk.Adamki11s.IO.IOStream;
 
 public class IOManager {
 	
