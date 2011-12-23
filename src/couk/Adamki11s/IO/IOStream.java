@@ -8,13 +8,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import couk.Adamki11s.Sync.Sync;
 
 public class IOStream {
 
-	private HashMap<String, Object> data = new HashMap<String, Object>();
+	private LinkedHashMap<String, Object> data = new LinkedHashMap<String, Object>();
 
 	private File f;
 
@@ -24,6 +26,14 @@ public class IOStream {
 
 	public void add(String key, Object data){
 		this.data.put(key, data);
+	}
+	
+	public void addComment(String comment){
+		data.put(comment, IDENTIFIERS.COMMENT);
+	}
+	
+	public void addNewLine(){
+		data.put(UUID.randomUUID().toString(), IDENTIFIERS.NEWLINE);
 	}
 	
 	public void remove(String key){
@@ -50,7 +60,7 @@ public class IOStream {
 		return this.data;
 	}
 	
-	public void setData(HashMap<String, Object> dataSet){
+	public void setData(LinkedHashMap<String, Object> dataSet){
 		this.data = dataSet;
 	}
 	
