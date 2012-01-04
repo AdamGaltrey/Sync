@@ -24,9 +24,5 @@ public class Sync extends JavaPlugin {
 		version = this.getDescription().getVersion();
 		log.info(prefix + " Sync Version " + version + " loaded successfully.");
 	}
-	
-	public SyncManager getSyncManager(Plugin p){
-		return new SyncManager(p);
-	}
 
 }
