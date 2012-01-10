@@ -2,14 +2,13 @@ package couk.Adamki11s.Sync;
 
 import java.util.logging.Logger;
 
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import couk.Adamki11s.Managers.SyncControl;
 
 public class Sync extends JavaPlugin {
 	
 	public static Logger log = Logger.getLogger("Sync");
-	public static String version;
+	public static String version = "1.0.0";
 	public static final String prefix = "[Sync]";
 
 	@Override

@@ -3,11 +3,12 @@ package couk.Adamki11s.IO;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class SyncIO extends IOStream {
 	
 	private File f;
-	private HashMap<String, Object> writeableData = new HashMap<String, Object>();
+	private LinkedHashMap<String, Object> writeableData = new LinkedHashMap<String, Object>();
 	private HashMap<String, Object> readableData = new HashMap<String, Object>();
 	
 	public SyncIO(File f){
@@ -31,11 +32,15 @@ public class SyncIO extends IOStream {
 	}
 	
 	public void write(){
-		super.write(this.f, this.writeableData);
+		try {
+			super.write(this.f, this.writeableData);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void read(){
-		this.readableData = super.read(this.f);
+		HashMap<String, Object> data = super.read(this.f);
 	}
 
 }
