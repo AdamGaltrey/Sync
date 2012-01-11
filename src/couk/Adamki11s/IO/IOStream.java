@@ -19,7 +19,7 @@ public class IOStream extends GenericIO {
 			String[] nodes = entry.getKey().split("\\.");
 			for (int tree = 1; tree <= nodes.length; tree++) {
 				if ((tree) != nodes.length) {
-					writer.write(super.getTab(tree) + super.getKey(nodes[tree - 1]) + "");
+					writer.write(super.getTab(tree) + super.getTerminatingKey(nodes[tree - 1]) + "");
 				} else {
 					writer.write(super.getTab(tree) + super.getKey(nodes[tree - 1]) + entry.getValue());
 				}

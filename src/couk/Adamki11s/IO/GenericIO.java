@@ -18,6 +18,10 @@ public class GenericIO {
 		return (key + ":");
 	}
 	
+	protected String getTerminatingKey(String key){
+		return (key + ";");
+	}
+	
 	protected String getTab(int length){
 		StringBuilder tab = new StringBuilder();
 		for(int i = 1; i <= length; i++){
