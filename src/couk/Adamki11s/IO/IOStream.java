@@ -30,7 +30,7 @@ public class IOStream extends GenericIO {
 		writer.close();
 	}
 
-	protected HashMap<String, Object> read(File f) {
+	protected LinkedHashMap<String, Object> read(File f) {
 		return null;
 	}
 

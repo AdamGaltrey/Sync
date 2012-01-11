@@ -9,7 +9,7 @@ public class SyncIO extends IOStream {
 	
 	private File f;
 	private LinkedHashMap<String, Object> writeableData = new LinkedHashMap<String, Object>();
-	private HashMap<String, Object> readableData = new HashMap<String, Object>();
+	private LinkedHashMap<String, Object> readableData = new LinkedHashMap<String, Object>();
 	
 	public SyncIO(File f){
 		this.f = f;
@@ -40,7 +40,7 @@ public class SyncIO extends IOStream {
 	}
 	
 	public void read(){
-		HashMap<String, Object> data = super.read(this.f);
+		LinkedHashMap<String, Object> data = super.read(this.f);
 	}
 
 }
