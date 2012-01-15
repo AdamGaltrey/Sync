@@ -24,8 +24,20 @@ public class IOStream extends GenericIO {
 			BufferedWriter fbw = new BufferedWriter(fstream);
 			fbw.write(super.getHeader());
 			fbw.newLine();
+			fbw.newLine();
 			for (Entry<String, Object> entry : data.entrySet()) {
-						fbw.write(entry.getKey().trim() + ":" + entry.getValue().toString().trim());
+				if(entry.getValue() instanceof IDENTIFIER){
+					IDENTIFIER id = (IDENTIFIER)entry.getValue();
+					if(id.isNewLine()){
+						fbw.newLine();
+					} else {
+						fbw.write("#" + id.getComment());
+						fbw.newLine();
+					}
+					continue;
+				}
+				fbw.write(entry.getKey().trim() + ":" + entry.getValue().toString().trim());
+				fbw.newLine();
 			}
 			fbw.close();
 		} catch (IOException iox) {
@@ -40,10 +52,14 @@ public class IOStream extends GenericIO {
 			BufferedReader br = new BufferedReader(new InputStreamReader(in));
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
-						String key = strLine.trim().substring(0, strLine.indexOf(":"));
-						String value = strLine.trim().substring(strLine.indexOf(":") + 1);
-						tempKeys.put(key, value);
+				if (strLine.isEmpty() || strLine.length() < 2 || strLine.startsWith("#")) {
+					System.out.println("Skipping " + strLine);
+					continue;
 				}
+				String key = strLine.trim().substring(0, strLine.indexOf(":"));
+				String value = strLine.trim().substring(strLine.indexOf(":") + 1);
+				tempKeys.put(key, value);
+			}
 			in.close();
 		} catch (IOException iox) {
 			iox.printStackTrace();
@@ -52,7 +68,6 @@ public class IOStream extends GenericIO {
 	}
 
 	public static void main(String[] args) {
-		LinkedHashMap<String, Object> base = new LinkedHashMap<String, Object>();
 		File f = new File("C:" + File.separator + "Sync" + File.separator + "Data.syn");
 		try {
 			f.createNewFile();
@@ -60,14 +75,16 @@ public class IOStream extends GenericIO {
 			e.printStackTrace();
 		}
 		SyncIO io = new SyncIO(f);
-		base.put("test.tree2.end", "Tedst");
-		try {
-			io.write(f, base);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		io.add("test", "test value");
+		io.addComment("TEST COMMENT");
+		io.addNewLine();
+		io.addComment("MULTIPLE COMMENT TEST");
+		io.addNewLine();
+		io.add("test2", "second value");
+		io.write();
 		io.read();
-		System.out.println(io.getString("test.tree2.end"));
+		System.out.println(io.getString("test"));
+		System.out.println(io.getString("test2"));
 	}
 
 }

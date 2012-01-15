@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.UUID;
+
+import couk.Adamki11s.IO.IDENTIFIER.ID;
 
 public class SyncIO extends IOStream {
 	
@@ -31,6 +34,26 @@ public class SyncIO extends IOStream {
 		f.delete();
 	}
 	
+	public void add(String key, Object data){
+		this.writeableData.put(key, data);
+	}
+	
+	public void addComment(String comment){
+		this.writeableData.put(UUID.randomUUID() + "", new IDENTIFIER(ID.COMMENT, comment));
+	}
+	
+	public void addNewLine(){
+		this.writeableData.put(UUID.randomUUID() + "",  new IDENTIFIER(ID.NEWLINE));
+	}
+	
+	public void edit(String key, Object data){
+		add(key, data);
+	}
+	
+	public void remove(String key){
+		this.writeableData.remove(key);
+	}
+	
 	public void write(){
 		try {
 			super.write(this.f, this.writeableData);
@@ -41,6 +64,18 @@ public class SyncIO extends IOStream {
 	
 	public void read(){
 		this.readableData = super.read(this.f);
+	}
+	
+	public void insertWriteableData(LinkedHashMap<String, Object> dataSet){
+		this.writeableData = dataSet;
+	}
+	
+	public LinkedHashMap<String, Object> getReadableData(){
+		return this.readableData;
+	}
+	
+	public LinkedHashMap<String, Object> getWriteableData(){
+		return this.writeableData;
 	}
 	
 	public Object getObject(String key){
