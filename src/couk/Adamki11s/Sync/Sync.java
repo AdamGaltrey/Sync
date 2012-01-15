@@ -2,7 +2,6 @@ package couk.Adamki11s.Sync;
 
 import java.util.logging.Logger;
 
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import couk.Adamki11s.Managers.SyncControl;
 import couk.Adamki11s.Scheduler.CoreAsyncThread;

@@ -8,7 +8,6 @@ import couk.Adamki11s.Sync.Sync;
 public class GenericIO {
 	
 	final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
-	private static final String TAB = "  ";
 	
 	protected String getHeader(){
 		return ("Generated using Sync version : " + Sync.version + " Date : " + getDate());

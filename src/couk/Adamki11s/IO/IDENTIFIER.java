@@ -1,7 +1,5 @@
 package couk.Adamki11s.IO;
 
-import java.util.UUID;
-
 public class IDENTIFIER {
 	
 	public static enum ID{

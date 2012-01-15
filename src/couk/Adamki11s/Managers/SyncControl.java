@@ -2,8 +2,6 @@ package couk.Adamki11s.Managers;
 
 import java.io.File;
 
-import org.bukkit.plugin.Plugin;
-
 import couk.Adamki11s.Cache.SyncCache;
 import couk.Adamki11s.Cryptography.SyncCryptography;
 import couk.Adamki11s.IO.SyncIO;
