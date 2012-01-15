@@ -67,6 +67,7 @@ public class IOStream extends GenericIO {
 		return tempKeys;
 	}
 
+	//FOR TESTING ONLY
 	public static void main(String[] args) {
 		File f = new File("C:" + File.separator + "Sync" + File.separator + "Data.syn");
 		try {
