@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import couk.Adamki11s.Managers.SyncControl;
+import couk.Adamki11s.Scheduler.CoreAsyncThread;
+import couk.Adamki11s.Scheduler.CoreSyncThread;
 
 public class Sync extends JavaPlugin {
 	
@@ -18,8 +20,12 @@ public class Sync extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		logGenericInfo("***** SYNC *****");
 		version = this.getDescription().getVersion();
-		log.info(prefix + " Sync Version " + version + " loaded successfully.");
+		this.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new CoreAsyncThread(), 20L, 20L);
+		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new CoreSyncThread(), 20L, 20L);
+		logGenericInfo(prefix + " Sync Version " + version + " loaded successfully.");
+		logGenericInfo("***** SYNC *****");
 	}
 	
 	public static void logGenericInfo(String message){
