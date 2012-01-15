@@ -18,18 +18,6 @@ public class GenericIO {
 		return (key + ":");
 	}
 	
-	protected String getTerminatingKey(String key){
-		return (key + ";");
-	}
-	
-	protected String getTab(int length){
-		StringBuilder tab = new StringBuilder();
-		for(int i = 1; i <= length; i++){
-			tab.append(TAB);
-		}
-		return tab.toString();
-	}
-	
 	private String getDate(){
 		Calendar cal = Calendar.getInstance();
 		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);

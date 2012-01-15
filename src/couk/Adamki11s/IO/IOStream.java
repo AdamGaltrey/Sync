@@ -1,37 +1,54 @@
 package couk.Adamki11s.IO;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Map.Entry;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 
 public class IOStream extends GenericIO {
 
 	protected void write(File f, LinkedHashMap<String, Object> data) throws IOException {
-		FileWriter fileStream = new FileWriter(f);
-		BufferedWriter writer = new BufferedWriter(fileStream);
-		writer.write(super.getHeader());
-		writer.newLine();
-		for (Entry<String, Object> entry : data.entrySet()) {
-			String[] nodes = entry.getKey().split("\\.");
-			for (int tree = 1; tree <= nodes.length; tree++) {
-				if ((tree) != nodes.length) {
-					writer.write(super.getTab(tree) + super.getTerminatingKey(nodes[tree - 1]) + "");
-				} else {
-					writer.write(super.getTab(tree) + super.getKey(nodes[tree - 1]) + entry.getValue());
-				}
-				writer.newLine();
+		try {
+			FileWriter fstream = new FileWriter(f);
+			BufferedWriter fbw = new BufferedWriter(fstream);
+			fbw.write(super.getHeader());
+			fbw.newLine();
+			for (Entry<String, Object> entry : data.entrySet()) {
+						fbw.write(entry.getKey().trim() + ":" + entry.getValue().toString().trim());
 			}
+			fbw.close();
+		} catch (IOException iox) {
+			iox.printStackTrace();
 		}
-		writer.flush();
-		writer.close();
 	}
 
 	protected LinkedHashMap<String, Object> read(File f) {
-		return null;
+		LinkedHashMap<String, Object> tempKeys = new LinkedHashMap<String, Object>();
+		try {
+			FileInputStream in = new FileInputStream(f);
+			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			String strLine;
+			while ((strLine = br.readLine()) != null) {
+						String key = strLine.trim().substring(0, strLine.indexOf(":"));
+						String value = strLine.trim().substring(strLine.indexOf(":") + 1);
+						tempKeys.put(key, value);
+				}
+			in.close();
+		} catch (IOException iox) {
+			iox.printStackTrace();
+		}
+		return tempKeys;
 	}
 
 	public static void main(String[] args) {
@@ -49,7 +66,8 @@ public class IOStream extends GenericIO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
+		io.read();
+		System.out.println(io.getString("test.tree2.end"));
 	}
 
 }

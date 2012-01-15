@@ -40,7 +40,15 @@ public class SyncIO extends IOStream {
 	}
 	
 	public void read(){
-		LinkedHashMap<String, Object> data = super.read(this.f);
+		this.readableData = super.read(this.f);
+	}
+	
+	public Object getObject(String key){
+		return this.readableData.get(key);
+	}
+	
+	public String getString(String key){
+		return getObject(key).toString();
 	}
 
 }
