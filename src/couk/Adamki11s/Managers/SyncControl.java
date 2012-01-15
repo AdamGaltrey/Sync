@@ -10,8 +10,8 @@ import couk.Adamki11s.Web.SyncWeb;
 
 public class SyncControl {
 	
-	public SyncCache getSyncCache() {
-		return new SyncCache();
+	public SyncCache getSyncCache(int updateRate) {
+		return new SyncCache(updateRate);
 	}
 	public SyncCryptography getSyncCryptography() {
 		return new SyncCryptography();
