@@ -1,0 +1,4 @@
+name: Sync
+main: couk.Adamki11s.Sync.Sync
+version: 1.0.0
+load: startup
