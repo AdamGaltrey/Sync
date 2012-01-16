@@ -17,16 +17,16 @@ public class Convertors {
 	private static final String locationRegex = "(^Location):(\\w+),(\\d+.?\\d+),(\\d+.?\\d+),(\\d+.?\\d+),(\\d+.?\\d+),(\\d+.?\\d+):";
 
 	public static String locationToString(Location l){
-		return "Location(" + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ() + "," + l.getYaw() + "," + l.getPitch() + ")";
+		return "Location:" + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ() + "," + l.getYaw() + "," + l.getPitch() + ":";
 	}
 	
 	public static String blockToString(Block b){
 		Location l = b.getLocation();
-		return "Block(" + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ() + "|" + b.getTypeId() + "," + b.getData() + ")";
+		return "Block:" + l.getWorld().getName() + "," + l.getX() + "," + l.getY() + "," + l.getZ() + "|" + b.getTypeId() + "," + b.getData() + ":";
 	}
 	
 	public static String itemStackToString(ItemStack is){
-		return "ItemStack(" + is.getTypeId() + "," + is.getData().getData() + "," + is.getAmount() + ")";
+		return "ItemStack:" + is.getTypeId() + "," + is.getData().getData() + "," + is.getAmount() + ":";
 	}
 	
 	public static Location stringToLocation(String location){
