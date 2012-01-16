@@ -2,6 +2,8 @@ package couk.Adamki11s.Cache;
 
 import java.util.HashMap;
 
+import couk.Adamki11s.Scheduler.AsyncChecks.CacheChecker;
+
 public class SyncCache {
 
 	private HashMap<String, CacheObject> reference = new HashMap<String, CacheObject>();
@@ -13,11 +15,13 @@ public class SyncCache {
 	public SyncCache(int updateRate){
 		this.updateRate = updateRate;
 		this.runChecks = true;
+		CacheChecker.caches.add(this);
 	}
 	
 	public SyncCache(int updateRate, boolean runChecks){
 		this.updateRate = updateRate;
 		this.runChecks = runChecks;
+		CacheChecker.caches.add(this);
 	}
 	
 	public boolean isRunningChecks(){
