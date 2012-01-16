@@ -1,4 +1,4 @@
-package couk.Adamki11s.Exceptions;
+package couk.Adamki11s.IO;
 
 public enum ConversionTypes {
 	
