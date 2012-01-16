@@ -1,14 +1,23 @@
-package couk.Adamki11s.IO;
+package couk.Adamki11s.IO.Standard;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
+
+import couk.Adamki11s.IO.GenericIO;
+import couk.Adamki11s.IO.IDENTIFIER;
+import couk.Adamki11s.IO.IDENTIFIER.ID;
 
 public class IOStream extends GenericIO {
 
@@ -64,8 +73,10 @@ public class IOStream extends GenericIO {
 	//FOR TESTING ONLY
 	public static void main(String[] args) {
 		File f = new File("C:" + File.separator + "Sync" + File.separator + "Data.syn");
+		File city = new File("C:" + File.separator + "Sync" + File.separator + "cities.dat");
 		try {
 			f.createNewFile();
+			city.createNewFile();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -77,7 +88,7 @@ public class IOStream extends GenericIO {
 		io.addNewLine();
 		io.add("test2", "second value");
 		io.write();
-		io.read();
+		io.read();       
 		System.out.println(io.getString("test"));
 		System.out.println(io.getString("test2"));
 	}

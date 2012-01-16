@@ -1,6 +1,8 @@
 package couk.Adamki11s.IO;
 
-public class IDENTIFIER {
+import java.io.Serializable;
+
+public class IDENTIFIER implements Serializable {
 	
 	public static enum ID{
 		NEWLINE,
