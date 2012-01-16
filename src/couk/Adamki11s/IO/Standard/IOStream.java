@@ -15,8 +15,8 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import couk.Adamki11s.Exceptions.ConversionTypes;
 import couk.Adamki11s.Exceptions.InvalidFormatException;
+import couk.Adamki11s.IO.ConversionTypes;
 import couk.Adamki11s.IO.Convertors;
 import couk.Adamki11s.IO.GenericIO;
 import couk.Adamki11s.IO.IDENTIFIER;
