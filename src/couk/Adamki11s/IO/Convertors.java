@@ -63,10 +63,10 @@ public class Convertors {
 		return null;
 	}
 	
-	private static boolean doesCompile(String regex, String checking){
+	public static boolean doesCompile(String regex, String checking){
 		Pattern p = Pattern.compile(regex);
 		Matcher match = p.matcher(checking);
-		return match.matches();
+		return match.find();
 	}
 
 }

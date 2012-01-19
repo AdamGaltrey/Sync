@@ -73,27 +73,4 @@ public class IOStream extends GenericIO {
 		return tempKeys;
 	}
 
-	//FOR TESTING ONLY
-	public static void main(String[] args) {
-		File f = new File("C:" + File.separator + "Sync" + File.separator + "Data.syn");
-		File city = new File("C:" + File.separator + "Sync" + File.separator + "cities.dat");
-		try {
-			f.createNewFile();
-			city.createNewFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		SyncIO io = new SyncIO(f);
-		io.add("test", "test value");
-		io.addComment("TEST COMMENT");
-		io.addNewLine();
-		io.addComment("MULTIPLE COMMENT TEST");
-		io.addNewLine();
-		io.add("test2", "second value");
-		io.write();
-		io.read();       
-		System.out.println(io.getString("test"));
-		System.out.println(io.getString("test2"));
-	}
-
 }
