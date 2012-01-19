@@ -6,6 +6,7 @@ import couk.Adamki11s.Cache.SyncCache;
 import couk.Adamki11s.Cryptography.SyncCryptography;
 import couk.Adamki11s.IO.Standard.SyncIO;
 import couk.Adamki11s.Plugins.SyncPluginData;
+import couk.Adamki11s.SQL.SyncSQL;
 import couk.Adamki11s.Web.SyncWeb;
 
 public class SyncControl {
@@ -24,6 +25,10 @@ public class SyncControl {
 	}
 	public SyncWeb getSyncWeb() {
 		return new SyncWeb();
+	}
+	
+	public SyncSQL getSyncSQL(){
+		return new SyncSQL();
 	}
 
 }
