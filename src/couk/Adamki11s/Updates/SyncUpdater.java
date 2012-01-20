@@ -78,16 +78,6 @@ public class SyncUpdater {
 		return svd;
 	}
 	
-	public static void main(String args[]){
-		SyncVersionData svd = getSyncVersionData("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1337.25433/");
-		if(svd != null){
-			System.out.println("Version : " + svd.getVersion());
-			System.out.println("DLink : " + svd.getDownloadLink().toString());
-		}
-		File destination = new File("C:" + File.separator + "Sync" + File.separator +  "test.vid");
-		WebFile.download("http://dl.dropbox.com/u/27260323/Regios/Dev%20Build/Latest/Regios.jar", destination);
-	}
-	
 	public boolean doVersionsMatch(String v1, String v2){
 		return v1.equalsIgnoreCase(v2);
 	}

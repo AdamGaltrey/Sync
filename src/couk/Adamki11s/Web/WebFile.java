@@ -8,8 +8,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.bukkit.Bukkit;
-
 import couk.Adamki11s.Managers.SyncLog;
 
 public class WebFile {
