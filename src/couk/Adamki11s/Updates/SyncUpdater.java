@@ -14,7 +14,7 @@ public class SyncUpdater {
 	//Version Syntax >> (SyncV=x.y.z)
 	private static final String regexVersionPattern = "\\(SyncV=(\\d+)(\\.\\d+){1,}\\)";
 
-	public static String getSyncVersion(String website) {
+	public String getSyncVersion(String website) {
 		URL url = null;
 		try {
 			url = new URL(website);
@@ -38,8 +38,8 @@ public class SyncUpdater {
 		return ";";
 	}
 	
-	public static void main(String[] args) {
-		getSyncVersion("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1337.25433/");
+	public boolean doVersionsMatch(String v1, String v2){
+		return v1.equalsIgnoreCase(v2);
 	}
 
 }
