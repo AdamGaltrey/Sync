@@ -19,11 +19,13 @@ public class ProgressDisplay implements Runnable {
 	public void run() {
 		while (run) {
 			SyncLog.logInfo("Downloading... " + ((int) progress * 100 / fileSize) + "%");
+			//to remove sleep when implementing bukkit's scheduler
 			try {
 				Thread.sleep(3000L);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			//to remove sleep when implementing bukkit's scheduler
 		}
 	}
 
