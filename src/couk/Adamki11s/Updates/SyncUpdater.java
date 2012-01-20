@@ -11,7 +11,8 @@ import couk.Adamki11s.Web.WebSource;
 
 public class SyncUpdater {
 	
-	private static final String regexVersionPattern = "SyncVgdgd"; //:Version=(.+)
+	//Version Syntax >> (SyncV=x.y.z)
+	private static final String regexVersionPattern = "\\(SyncV=(\\d+)(\\.\\d+){1,}\\)";
 
 	public static String getSyncVersion(String website) {
 		URL url = null;
