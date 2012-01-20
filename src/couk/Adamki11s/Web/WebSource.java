@@ -11,7 +11,7 @@ import couk.Adamki11s.Managers.SyncLog;
 
 public class WebSource {
 	
-	public static String fetchSource(URL website){
+	public static synchronized String fetchSource(URL website){
 		
 	    InputStream is = null;
 	    DataInputStream dis = null;
