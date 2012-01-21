@@ -2,25 +2,15 @@ package couk.Adamki11s.IO.Standard;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
-
-import couk.Adamki11s.Exceptions.InvalidFormatException;
-import couk.Adamki11s.IO.ConversionTypes;
-import couk.Adamki11s.IO.Convertors;
 import couk.Adamki11s.IO.GenericIO;
 import couk.Adamki11s.IO.IDENTIFIER;
-import couk.Adamki11s.IO.IDENTIFIER.ID;
 
 public class IOStream extends GenericIO {
 

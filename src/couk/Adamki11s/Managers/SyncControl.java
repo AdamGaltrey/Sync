@@ -28,8 +28,12 @@ public class SyncControl {
 		return new SyncWeb();
 	}
 	
-	public SyncSQL getSyncSQL(){
-		return new SyncSQL();
+	public SyncSQL getSyncSQLite(File f){
+		return new SyncSQL(f);
+	}
+	
+	public SyncSQL getSyncMySQL(String host, String database, String username, String password){
+		return new SyncSQL(host, database, username, password);
 	}
 	
 	public SyncUpdater getSyncUpdater(){

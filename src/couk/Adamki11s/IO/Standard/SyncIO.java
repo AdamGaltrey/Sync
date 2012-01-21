@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.UUID;
-
 import couk.Adamki11s.IO.IDENTIFIER;
 import couk.Adamki11s.IO.IDENTIFIER.ID;
 
