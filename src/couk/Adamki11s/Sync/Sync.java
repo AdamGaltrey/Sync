@@ -4,8 +4,6 @@ import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import couk.Adamki11s.Managers.SyncControl;
-import couk.Adamki11s.Scheduler.CoreAsyncThread;
-import couk.Adamki11s.Scheduler.CoreSyncThread;
 
 public class Sync extends JavaPlugin {
 	

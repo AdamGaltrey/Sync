@@ -1,15 +1,12 @@
 package couk.Adamki11s.Updates;
 
-import java.io.File;
 import java.net.MalformedURLException;
-import java.net.SocketException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import couk.Adamki11s.IO.Convertors;
 import couk.Adamki11s.Managers.SyncLog;
-import couk.Adamki11s.Web.WebFile;
 import couk.Adamki11s.Web.WebSource;
 
 public class SyncUpdater {
