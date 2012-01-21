@@ -14,6 +14,7 @@ public class SQLOperations {
 		try {
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query);
+			statement.close();
 		} catch (SQLException sqlx) {
 			sqlx.printStackTrace();
 		}
@@ -23,6 +24,8 @@ public class SQLOperations {
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(query);
+			result.close();
+			statement.close();
 			return result;
 		} catch (SQLException sqlx) {
 			sqlx.printStackTrace();
@@ -35,6 +38,7 @@ public class SQLOperations {
 		try {
 			dbm = connection.getMetaData();
 			ResultSet tables = dbm.getTables(null, null, table, null);
+			tables.close();
 			return tables.next();
 		} catch (SQLException e) {
 			SyncLog.logSevere("Failed to check existance of table : " + table);
