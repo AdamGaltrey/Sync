@@ -2,50 +2,12 @@ package couk.Adamki11s.Cache;
 
 import java.util.HashMap;
 
-import couk.Adamki11s.Scheduler.AsyncChecks.CacheChecker;
-
 public class SyncCache {
 
-	private HashMap<String, CacheObject> reference = new HashMap<String, CacheObject>();
-	private long lastCheck;
-	
-	private int updateRate = 1;
-	private boolean runChecks = true;
-	
-	public SyncCache(int updateRate){
-		this.updateRate = updateRate;
-		this.runChecks = true;
-		CacheChecker.caches.add(this);
-	}
-	
-	public SyncCache(int updateRate, boolean runChecks){
-		this.updateRate = updateRate;
-		this.runChecks = runChecks;
-		CacheChecker.caches.add(this);
-	}
-	
-	public boolean isRunningChecks(){
-		return this.runChecks;
-	}
-	
-	public int getUpdateRate(){
-		return this.updateRate;
-	}
-	
-	public void setTimeCheck(){
-		this.lastCheck = System.currentTimeMillis();
-	}
-	
-	public boolean canBeChecked(){
-		return ((System.currentTimeMillis() / 1000) - (this.lastCheck / 1000)) >= this.updateRate;
-	}
+	private HashMap<String, Object> reference = new HashMap<String, Object>();
 
 	public void add(String id, Object data) {
-		this.reference.put(id, new CacheObject(data, 0));
-	}
-
-	public void add(String id, Object data, int persistanceDuration) {
-		this.reference.put(id, new CacheObject(data, persistanceDuration));
+		this.reference.put(id, data);
 	}
 
 	public void remove(String id) {
@@ -56,11 +18,11 @@ public class SyncCache {
 		return this.reference.containsKey(id);
 	}
 	
-	public long getTimeUntilErased(String id){
-		return (!exists(id) ? 0 : this.reference.get(id).getTimeUntilErased());
+	public Object getObject(String key){
+		return this.reference.get(key);
 	}
 
-	public HashMap<String, CacheObject> getCache() {
+	public HashMap<String, Object> getCache() {
 		return this.reference;
 	}
 

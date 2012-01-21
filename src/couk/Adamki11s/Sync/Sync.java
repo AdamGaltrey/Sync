@@ -22,8 +22,6 @@ public class Sync extends JavaPlugin {
 	public void onEnable() {
 		logGenericInfo("***** SYNC *****");
 		version = this.getDescription().getVersion();
-		this.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new CoreAsyncThread(), 20L, 20L);
-		this.getServer().getScheduler().scheduleSyncRepeatingTask(this, new CoreSyncThread(), 20L, 20L);
 		logGenericInfo(prefix + " Sync Version " + version + " loaded successfully.");
 		logGenericInfo("***** SYNC *****");
 	}
