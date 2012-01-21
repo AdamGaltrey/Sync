@@ -6,10 +6,11 @@ import java.net.URL;
 public class SyncVersionData {
 	
 	private URL downloadLink;
-	private String version;
+	private String version, changelog;
 	
-	public SyncVersionData(String downloadLink, String version){
+	public SyncVersionData(String downloadLink, String version, String changelog){
 		this.version = version;
+		this.changelog = changelog;
 		try {
 			this.downloadLink = new URL(downloadLink);
 		} catch (MalformedURLException e) {
@@ -23,6 +24,10 @@ public class SyncVersionData {
 
 	public String getVersion() {
 		return version;
+	}
+	
+	public String getChangelog(){
+		return this.changelog;
 	}
 
 }

@@ -14,11 +14,14 @@ public class SyncUpdater {
 	//catch socket exceptions
 	
 	//Version Syntax >> (SyncV=x.y.z)
+	//Download Syntax >> (website.suffix) - NO 'http://www.'
+	//Changelog Syntax >> (Any text and characters !"£$%^&*{}[]:@~;'#<>?,./) No BRACKETS!
 	private static final String regexVersionPattern = "(\\(Sync_Version=(\\d+)(\\.\\d+){1,}\\))",
-			regexDownloadLinkPattern = "(\\(Sync_Download=(\\w+)(\\..*?){1,}\\))";
+			regexDownloadLinkPattern = "(\\(Sync_Download=(\\w+)(\\..*?){1,}\\))",
+			regexChangelogPattern = "(\\(Sync_Changelog=(.*?)\\))";
 
 	public static SyncVersionData getSyncVersionData(String website) {
-		String rawVersion = "", rawDLink = "", finalVersion = "", finalDLink = "";
+		String rawVersion = "", rawDLink = "", rawChangelog = "", finalVersion = "", finalDLink = "", finalChangelog = "";
 		URL url = null;
 		try {
 			url = new URL(website);
@@ -32,8 +35,7 @@ public class SyncUpdater {
 		Pattern p = Pattern.compile(regexVersionPattern);
 		Matcher match = p.matcher(source);
 		
-		int versionMatches = 0;
-		int dlMatches = 0;
+		int versionMatches = 0, dlMatches = 0, changelogMatches = 0;
 		
 		while(match.find()){
 			rawVersion = match.group();
@@ -71,7 +73,28 @@ public class SyncUpdater {
 			SyncLog.logSevere("Found multiple Sync Download headers! Got " + dlMatches + ". Expected 1!");
 			return null;
 		}
-		SyncVersionData svd = new SyncVersionData(finalDLink, finalVersion);
+		
+		p = Pattern.compile(regexChangelogPattern);
+		match = p.matcher(source);
+		
+		while(match.find()){
+			rawChangelog = match.group();
+			changelogMatches++;
+		}
+		
+		if(!Convertors.doesCompile(regexChangelogPattern, source)){
+			SyncLog.logSevere("No Sync Changelog headers found at URL! " + website);
+			return null;
+		}
+		
+		if(dlMatches == 1) {
+			finalChangelog = rawChangelog.substring(rawChangelog.indexOf("=") + 1, rawChangelog.length() - 1);
+		} else {
+			SyncLog.logSevere("Found multiple Sync Changelog headers! Got " + changelogMatches + ". Expected 1!");
+			return null;
+		}
+		
+		SyncVersionData svd = new SyncVersionData(finalDLink, finalVersion, finalChangelog);
 		return svd;
 	}
 	

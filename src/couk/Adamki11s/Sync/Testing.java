@@ -5,13 +5,23 @@ import java.io.Serializable;
 
 import couk.Adamki11s.IO.Objects.SyncObjectIO;
 import couk.Adamki11s.IO.Objects.SyncWrapper;
+import couk.Adamki11s.Updates.SyncUpdater;
+import couk.Adamki11s.Updates.SyncVersionData;
 
 public class Testing {
 
 	static File root = new File("C:" + File.separator + "Sync");
 
 	public static void main(String[] args) {
-		testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
+		// testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
+		testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
+	}
+
+	public static void testUpdater(String url){
+		SyncVersionData svd = SyncUpdater.getSyncVersionData(url);
+		System.out.println("Version : " + svd.getVersion());
+		System.out.println("Download Link : " + svd.getDownloadLink());
+		System.out.println("Changelog : " + svd.getChangelog());
 	}
 
 	public static void testSyncObjectIO(File f) {
@@ -45,31 +55,30 @@ public class Testing {
 		} else {
 			System.out.println("O2 Object = NULL");
 		}
-		
+
 		if (o3 != null) {
 			System.out.println("O3 Object = " + o3.toString());
-			testclass conversion = (testclass)o3;
+			testclass conversion = (testclass) o3;
 			System.out.println("Test class 3 string = " + conversion.getString());
 		} else {
 			System.out.println("O2 Object = NULL");
 		}
 	}
-	
-	
+
 }
 
 class testclass implements Serializable {
 
 	private static final long serialVersionUID = -5407829961470248782L;
-	
+
 	private String s;
-	
-	public testclass(String s){
+
+	public testclass(String s) {
 		this.s = s;
 	}
-	
-	public String getString(){
+
+	public String getString() {
 		return this.s;
 	}
-	
+
 }
