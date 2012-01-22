@@ -1,47 +1,64 @@
 package couk.Adamki11s.IO.Blocks;
 
-import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.zip.GZIPOutputStream;
+import java.util.Map;
+import java.util.zip.GZIPInputStream;
 
-import org.bukkit.block.Block;
+import org.bukkit.ChatColor;
+
+import couk.Adamki11s.Exceptions.InvalidNBTFormat;
+import couk.Adamki11s.IO.Blocks.jnbt.NBTOutputStream;
+import couk.Adamki11s.IO.Blocks.jnbt.Tag;
+import couk.Adamki11s.IO.Blocks.jnbt.NBTInputStream;
+import couk.Adamki11s.IO.Blocks.jnbt.CompoundTag;
 
 public class BlockIOStream {
 
 	private final File f;
-	private final FileOutputStream fos;
-	private final DataOutputStream dos;
+	private final NBTOutputStream stream;
+	private final NBTInputStream input;
 
 	public BlockIOStream(File f) throws Exception {
 		this.f = f;
-		fos = new FileOutputStream(this.f);
-		dos = new DataOutputStream(new GZIPOutputStream(fos));
+		if(!f.exists()){
+			f.createNewFile();
+		}
+		stream = new NBTOutputStream(new FileOutputStream(f));
+		input = new NBTInputStream(new GZIPInputStream(new FileInputStream(f)));
 	}
 
-	public void writeWorldHeader(String world) {
+	public void write(Tag tag) {
 		try {
-			dos.writeUTF(world);
+			this.stream.writeTag(tag);
 		} catch (IOException iox) {
 			iox.printStackTrace();
 		}
 	}
-
-	public void write(byte[] blocks) {
+	
+	public Map<String, Tag> read(){
+		CompoundTag backuptag = null;
 		try {
-			System.out.println("Writing blocks : " + blocks.length);
-			dos.write(blocks);
-		} catch (IOException iox) {
-			iox.printStackTrace();
+			backuptag = (CompoundTag) input.readTag();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+		if (!backuptag.getName().equals("SyncBackup")) {
+			try {
+				throw new InvalidNBTFormat("UNKNOWN", "SyncBackup", backuptag.getName());
+			} catch (InvalidNBTFormat e) {
+				e.printStackTrace();
+			}
+		}
+		return backuptag.getValue();
 	}
 
 	public void closeStream() {
 		try {
-			dos.flush();
-			dos.close();
+			this.stream.close();
 		} catch (IOException iox) {
 			iox.printStackTrace();
 		}
