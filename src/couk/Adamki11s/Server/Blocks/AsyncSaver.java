@@ -21,20 +21,15 @@ public class AsyncSaver implements Runnable {
 	private LinkedList<Block> blocks = new LinkedList<Block>();
 	private int x1, y1, z1, x2, y2, z2, width, height, length;
 	private boolean working = true;
-	private BlockIOStream io;
-	private final File output;
+	private SyncBlockIO io;
+	private final SyncBlockIO output;
 
 	private int bufferSize = 10000;
 	byte[] blockID;
 	byte[] blockData;
 
-	public AsyncSaver(File f, World w, int x1, int y1, int z1, int x2, int y2, int z2) throws SizeExceededException {
+	public AsyncSaver(SyncBlockIO f, World w, int x1, int y1, int z1, int x2, int y2, int z2) throws SizeExceededException {
 		this.output = f;
-		try {
-			io = new BlockIOStream(f);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
 		this.w = w;
 		this.x1 = x1;
 		this.y1 = y1;
@@ -45,16 +40,10 @@ public class AsyncSaver implements Runnable {
 		width = x2 - x1;
 		height = y2 - y2;
 		length = z2 - z1;
-		System.out.println(width);
-		System.out.println(height);
-		System.out.println(length);
-		int arraySize = width * height * length; // Math.abs(((x2 - x1) * (y2 -
-													// y1) * (z2 -
-		// z1)));
+		int arraySize = width * height * length;
 		if (width > 256 || height > 256 || length > 256) {
 			throw new SizeExceededException(Math.max(length, Math.max(width, height)));
 		}
-		System.out.println("byte array size = " + arraySize);
 		blockID = new byte[arraySize];
 		blockData = new byte[arraySize];
 	}
@@ -87,9 +76,9 @@ public class AsyncSaver implements Runnable {
 		tags.put("YSize", new IntTag("YSize", height));
 		tags.put("ZSize", new IntTag("ZSize", length));
 		CompoundTag compoundTag = new CompoundTag("SyncBackup", tags);
-		io.write(compoundTag);
-		io.closeStream();
-		System.out.println("response time = " + ((System.nanoTime() - start) / 1000000000F));
+		this.output.reopenOutputStream();
+		this.output.writePayload(compoundTag);
+		this.output.closeOutputStream();
 	}
 
 	public boolean isWorking() {
