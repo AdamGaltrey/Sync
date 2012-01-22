@@ -1,6 +1,7 @@
 package couk.Adamki11s.Server.Blocks;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -8,10 +9,10 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import couk.Adamki11s.Exceptions.SizeExceededException;
-import couk.Adamki11s.IO.Blocks.BlockIOStream;
 import couk.Adamki11s.IO.Blocks.SyncBlockIO;
 import couk.Adamki11s.IO.Blocks.jnbt.ByteArrayTag;
 import couk.Adamki11s.IO.Blocks.jnbt.IntTag;
+import couk.Adamki11s.IO.Blocks.jnbt.NBTOutputStream;
 import couk.Adamki11s.IO.Blocks.jnbt.Tag;
 import couk.Adamki11s.IO.Blocks.jnbt.CompoundTag;
 
@@ -22,13 +23,13 @@ public class AsyncSaver implements Runnable {
 	private int x1, y1, z1, x2, y2, z2, width, height, length;
 	private boolean working = true;
 	private SyncBlockIO io;
-	private final SyncBlockIO output;
+	private final File output;
 
 	private int bufferSize = 10000;
 	byte[] blockID;
 	byte[] blockData;
 
-	public AsyncSaver(SyncBlockIO f, World w, int x1, int y1, int z1, int x2, int y2, int z2) throws SizeExceededException {
+	public AsyncSaver(File f, World w, int x1, int y1, int z1, int x2, int y2, int z2) throws SizeExceededException {
 		this.output = f;
 		this.w = w;
 		this.x1 = x1;
@@ -38,8 +39,9 @@ public class AsyncSaver implements Runnable {
 		this.y2 = y2;
 		this.z2 = z2;
 		width = x2 - x1;
-		height = y2 - y2;
+		height = y2 - y1;
 		length = z2 - z1;
+		System.out.println(width + ", " + height + ", " + length);
 		int arraySize = width * height * length;
 		if (width > 256 || height > 256 || length > 256) {
 			throw new SizeExceededException(Math.max(length, Math.max(width, height)));
@@ -76,9 +78,13 @@ public class AsyncSaver implements Runnable {
 		tags.put("YSize", new IntTag("YSize", height));
 		tags.put("ZSize", new IntTag("ZSize", length));
 		CompoundTag compoundTag = new CompoundTag("SyncBackup", tags);
-		this.output.reopenOutputStream();
-		this.output.writePayload(compoundTag);
-		this.output.closeOutputStream();
+		try {
+			NBTOutputStream nbt = new NBTOutputStream(new FileOutputStream(this.output));
+			nbt.writeTag(compoundTag);
+			nbt.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public boolean isWorking() {
