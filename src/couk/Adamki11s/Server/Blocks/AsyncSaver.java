@@ -22,14 +22,16 @@ public class AsyncSaver implements Runnable {
 	private int x1, y1, z1, x2, y2, z2, width, height, length;
 	private boolean working = true;
 	private BlockIOStream io;
+	private final File output;
 
 	private int bufferSize = 10000;
 	byte[] blockID;
 	byte[] blockData;
 
-	public AsyncSaver(World w, int x1, int y1, int z1, int x2, int y2, int z2) throws SizeExceededException {
+	public AsyncSaver(File f, World w, int x1, int y1, int z1, int x2, int y2, int z2) throws SizeExceededException {
+		this.output = f;
 		try {
-			io = new BlockIOStream(new File("plugins" + File.separator + "blocks.syn"));
+			io = new BlockIOStream(f);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
