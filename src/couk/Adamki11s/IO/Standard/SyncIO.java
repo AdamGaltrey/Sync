@@ -84,5 +84,17 @@ public class SyncIO extends IOStream {
 	public String getString(String key){
 		return getObject(key).toString();
 	}
+	
+	public int getInt(String key){
+		return Integer.parseInt(getString(key));
+	}
+	
+	public double getDouble(String key){
+		return Double.parseDouble(getString(key));
+	}
+	
+	public boolean getBoolean(String key){
+		return Boolean.parseBoolean(getString(key));
+	}
 
 }

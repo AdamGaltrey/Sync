@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import couk.Adamki11s.Configuration.FileConfigurations;
 import couk.Adamki11s.Configuration.FolderConfigurations;
 import couk.Adamki11s.Managers.SyncControl;
 
@@ -24,6 +25,7 @@ public class Sync extends JavaPlugin {
 	public void onEnable() {
 		plugin = this;
 		FolderConfigurations.folderChecks();
+		FileConfigurations.createConfigurations();
 		logGenericInfo("***** SYNC *****");
 		version = this.getDescription().getVersion();
 		logGenericInfo(prefix + " Sync Version " + version + " loaded successfully.");

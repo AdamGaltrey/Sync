@@ -20,7 +20,6 @@ public class IOStream extends GenericIO {
 			BufferedWriter fbw = new BufferedWriter(fstream);
 			fbw.write(super.getHeader());
 			fbw.newLine();
-			fbw.newLine();
 			for (Entry<String, Object> entry : data.entrySet()) {
 				if(entry.getValue() instanceof IDENTIFIER){
 					IDENTIFIER id = (IDENTIFIER)entry.getValue();
