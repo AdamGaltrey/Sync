@@ -10,8 +10,10 @@ import couk.Adamki11s.Managers.SyncLog;
 
 public class SQLOperations {
 
-	protected void standardQuery(String query, Connection connection) {
+	protected synchronized void standardQuery(String query, Connection connection) {
 		try {
+			System.out.println(query);
+			System.out.println(connection);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();
@@ -20,7 +22,7 @@ public class SQLOperations {
 		}
 	}
 
-	protected ResultSet sqlQuery(String query, Connection connection) {
+	protected synchronized ResultSet sqlQuery(String query, Connection connection) {
 		try {
 			Statement statement = connection.createStatement();
 			ResultSet result = statement.executeQuery(query);
@@ -31,7 +33,7 @@ public class SQLOperations {
 		return null;
 	}
 
-	protected boolean checkTable(String table, Connection connection) {
+	protected synchronized boolean checkTable(String table, Connection connection) {
 		DatabaseMetaData dbm;
 		try {
 			dbm = connection.getMetaData();
