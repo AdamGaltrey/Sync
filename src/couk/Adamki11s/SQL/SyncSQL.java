@@ -30,6 +30,14 @@ public class SyncSQL extends SQLOperations {
 			initialise();
 		}
 	}
+	
+	public void closeConnection(){
+		try {
+			this.connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public boolean initialise() {
 		if (schema == SCHEMA.MySQL) {
