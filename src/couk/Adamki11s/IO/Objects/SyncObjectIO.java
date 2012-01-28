@@ -37,6 +37,11 @@ public class SyncObjectIO extends ObjectIOStream {
 	public void remove(SyncWrapper wrapper) {
 		this.writeableData.remove(wrapper);
 	}
+	
+	public void erase(){
+		this.readableData.clear();
+		this.writeableData.clear();
+	}
 
 	public void write() {
 		super.write(this.f, this.writeableData);
@@ -58,14 +63,14 @@ public class SyncObjectIO extends ObjectIOStream {
 		return this.writeableData;
 	}
 
-	public boolean doesWrapperExist(String tag) {
-		return (!(getWrapper(tag) == null));
+	public boolean doesObjectExist(String tag) {
+		return (!(getObject(tag) == null));
 	}
 
-	public SyncWrapper getWrapper(String tag) {
+	public Object getObject(String tag) {
 		for (SyncWrapper wrapper : this.readableData) {
 			if (wrapper.getTag().equalsIgnoreCase(tag)) {
-				return wrapper;
+				return wrapper.getObject();
 			}
 		}
 		return null;

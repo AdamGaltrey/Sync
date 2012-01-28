@@ -13,8 +13,8 @@ public class Testing {
 	static File root = new File("C:" + File.separator + "Sync");
 
 	public static void main(String[] args) {
-		// testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
-		testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
+		testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
+		//testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
 	}
 
 	public static void testUpdater(String url){
@@ -34,14 +34,14 @@ public class Testing {
 
 		Object o1 = null, o2 = null, o3 = null;
 
-		if (io.doesWrapperExist("wrapper1")) {
-			o1 = io.getWrapper("wrapper1").getObject();
+		if (io.doesObjectExist("invalidwrapper")) {
+			o2 = io.getObject("invalidwrapper");
 		}
-		if (io.doesWrapperExist("invalidwrapper")) {
-			o2 = io.getWrapper("invalidwrapper").getObject();
+		if (io.doesObjectExist("wrapper1")) {
+			o1 = io.getObject("wrapper1");
 		}
-		if (io.doesWrapperExist("classWrapper")) {
-			o3 = io.getWrapper("classWrapper").getObject();
+		if (io.doesObjectExist("classWrapper")) {
+			o3 = io.getObject("classWrapper");
 		}
 
 		if (o1 != null) {

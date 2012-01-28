@@ -29,8 +29,13 @@ public class SyncIO extends IOStream {
 		f.createNewFile();
 	}
 	
-	public void delete(){
+	public void deleteFile(){
 		f.delete();
+	}
+	
+	public void erase(){
+		this.writeableData.clear();
+		this.readableData.clear();
 	}
 	
 	public void add(String key, Object data){

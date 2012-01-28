@@ -63,5 +63,9 @@ public class SyncCache {
 	public HashMap<String, Object> getCache() {
 		return this.reference;
 	}
+	
+	public void erase(){
+		this.reference.clear();
+	}
 
 }
