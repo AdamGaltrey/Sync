@@ -12,8 +12,6 @@ public class SQLOperations {
 
 	protected synchronized void standardQuery(String query, Connection connection) {
 		try {
-			System.out.println(query);
-			System.out.println(connection);
 			Statement statement = connection.createStatement();
 			statement.executeUpdate(query);
 			statement.close();

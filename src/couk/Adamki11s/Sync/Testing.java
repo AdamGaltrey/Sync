@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 import couk.Adamki11s.IO.Objects.SyncObjectIO;
 import couk.Adamki11s.IO.Objects.SyncWrapper;
-import couk.Adamki11s.Queue.SQLQueue;
 import couk.Adamki11s.SQL.SyncSQL;
 import couk.Adamki11s.Updates.SyncUpdater;
 import couk.Adamki11s.Updates.SyncVersionData;
@@ -21,24 +20,6 @@ public class Testing {
 		//testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
 		//testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
 		//testSql(new File(root + File.separator + "database.db"));
-		//testSqlQueue(new File(root + File.separator + "database.db"));
-	}
-	
-	public static void testSqlQueue(File f){
-		SyncSQL sql = new SyncSQL(f);
-		sql.initialise();
-		System.out.println("Initialised connection");
-		if(sql.doesTableExist("test")){
-			System.out.println("Table test exists!");
-		} else {
-			System.out.println("Table test does not exist creating...");
-			sql.standardQuery("CREATE TABLE test ('id' INTEGER PRIMARY KEY, 'text' VARCHAR(50));");
-		}
-		SQLQueue queue = new SQLQueue(sql, 10);
-		for(int i = 0; i < 15; i++){
-			queue.addQuery("INSERT INTO test (text) values ('NUBMER" + i + "');");
-		}
-		queue.forcePush();
 	}
 	
 	public static void testSql(File f){
