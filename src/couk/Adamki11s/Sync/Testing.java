@@ -2,9 +2,12 @@ package couk.Adamki11s.Sync;
 
 import java.io.File;
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import couk.Adamki11s.IO.Objects.SyncObjectIO;
 import couk.Adamki11s.IO.Objects.SyncWrapper;
+import couk.Adamki11s.SQL.SyncSQL;
 import couk.Adamki11s.Updates.SyncUpdater;
 import couk.Adamki11s.Updates.SyncVersionData;
 
@@ -13,8 +16,33 @@ public class Testing {
 	static File root = new File("C:" + File.separator + "Sync");
 
 	public static void main(String[] args) {
-		testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
+		//testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
 		//testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
+		//testSql(new File(root + File.separator + "database.db"));
+	}
+	
+	public static void testSql(File f){
+		SyncSQL sql = new SyncSQL(f);
+		sql.initialise();
+		System.out.println("Initialised connection");
+		if(sql.doesTableExist("test")){
+			System.out.println("Table test exists!");
+		} else {
+			System.out.println("Table test does not exist creating...");
+			sql.standardQuery("CREATE TABLE test ('id' INTEGER PRIMARY KEY, 'text' VARCHAR(50));");
+		}
+		sql.standardQuery("INSERT INTO test (text) values ('hello'); INSERT INTO test (text) values ('anotherval');");
+		ResultSet set = sql.sqlQuery("SELECT * FROM test;");
+		try {
+			while(set.next()){
+				System.out.println(set.getString("text"));
+			}
+			set.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	public static void testUpdater(String url){

@@ -7,5 +7,6 @@ public class GlobalConfiguration {
 	//Updates Configuration
 	public static boolean checkForUpdates, autoDownloadUpdates, reloadAfterUpdate;
 	public static File downloadPath;
+	public static int updateCycle;
 
 }

@@ -1,6 +1,7 @@
 package couk.Adamki11s.SQL;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 
 import couk.Adamki11s.Managers.SyncLog;
@@ -53,6 +54,13 @@ public class SyncSQL extends SQLOperations {
 				ex.printStackTrace();
 			}
 		} else {
+			if(!databaseFile.exists()){
+				try {
+					databaseFile.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 			try {
 				Class.forName("org.sqlite.JDBC");
 				connection = DriverManager.getConnection("jdbc:sqlite:" + this.databaseFile.getAbsolutePath());
@@ -76,6 +84,11 @@ public class SyncSQL extends SQLOperations {
 	public ResultSet sqlQuery(String query){
 		this.refreshConnection();
 		return super.sqlQuery(query, this.connection);
+	}
+	
+	public boolean doesTableExist(String table){
+		this.refreshConnection();
+		return super.checkTable(table, this.connection);
 	}
 
 }

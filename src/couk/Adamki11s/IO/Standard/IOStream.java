@@ -18,8 +18,6 @@ public class IOStream extends GenericIO {
 		try {
 			FileWriter fstream = new FileWriter(f);
 			BufferedWriter fbw = new BufferedWriter(fstream);
-			fbw.write(super.getHeader());
-			fbw.newLine();
 			for (Entry<String, Object> entry : data.entrySet()) {
 				if(entry.getValue() instanceof IDENTIFIER){
 					IDENTIFIER id = (IDENTIFIER)entry.getValue();
@@ -48,7 +46,6 @@ public class IOStream extends GenericIO {
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
 				if (strLine.isEmpty() || strLine.length() < 2 || strLine.startsWith("#")) {
-					System.out.println("Skipping " + strLine);
 					continue;
 				}
 				String key = strLine.trim().substring(0, strLine.indexOf(":"));

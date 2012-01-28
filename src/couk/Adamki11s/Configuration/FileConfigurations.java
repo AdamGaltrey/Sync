@@ -18,8 +18,10 @@ public class FileConfigurations {
 			try {
 				updatesConfiguration.createNewFile();
 				SyncIO io = new SyncIO(updatesConfiguration);
+				io.add("UpdateCheckCycle", 60);
+				io.addComment("How often Sync will check for updates for all plugins registered with Sync, in minutes. (Default = 1 hour [60 mins])");
 				io.add("CheckForUpdates", true);
-				io.addComment("Whether to check for plugin updates for Sync alone. Other plugins which use Sync should have their own configurations.");
+				io.addComment("Whether to check for plugin updates. Other plugins which use Sync should have their own configurations.");
 				io.add("AutoDownloadUpdates", true);
 				io.addComment("Whether Sync will automatically download the newest version of itself");
 				io.add("ReloadAfterUpdate", true);
@@ -35,10 +37,12 @@ public class FileConfigurations {
 		io.read();
 		boolean checkForUpdates = io.getBoolean("CheckForUpdates"), autoDownload = io.getBoolean("AutoDownloadUpdates"), reloadAfterUpdate = io.getBoolean("ReloadAfterUpdate");
 		File downloadPath = new File(io.getString("DownloadPath").replace("\\", File.separator));
+		int updateCycle = io.getInt("UpdateCheckCycle");
 		GlobalConfiguration.checkForUpdates = checkForUpdates;
 		GlobalConfiguration.autoDownloadUpdates = autoDownload;
 		GlobalConfiguration.reloadAfterUpdate = reloadAfterUpdate;
 		GlobalConfiguration.downloadPath = downloadPath;
+		GlobalConfiguration.updateCycle = updateCycle;
 	}
 
 }
