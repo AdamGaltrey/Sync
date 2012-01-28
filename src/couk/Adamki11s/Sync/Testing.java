@@ -10,6 +10,7 @@ import couk.Adamki11s.IO.Objects.SyncWrapper;
 import couk.Adamki11s.SQL.SyncSQL;
 import couk.Adamki11s.Updates.SyncUpdater;
 import couk.Adamki11s.Updates.SyncVersionData;
+import couk.Adamki11s.Utilities.RuntimeData;
 
 public class Testing {
 
@@ -19,6 +20,7 @@ public class Testing {
 		//testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
 		//testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
 		//testSql(new File(root + File.separator + "database.db"));
+
 	}
 	
 	public static void testSql(File f){
