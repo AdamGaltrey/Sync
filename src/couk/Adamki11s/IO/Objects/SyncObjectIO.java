@@ -31,23 +31,32 @@ public class SyncObjectIO extends ObjectIOStream {
 	}
 
 	/**
-	 * Add a SyncWrapper holding an object to be serialized upon invoking the
-	 * write() method.
+	 * Add an object bound to a key which will be serialized upon invocation of
+	 * the write() method.
 	 * 
 	 * @param wrapper
 	 */
-	public void add(SyncWrapper wrapper) {
-		this.writeableData.add(wrapper);
+	public void add(String tag, Object object) {
+		this.writeableData.add(new SyncWrapper(tag, object));
 	}
 
 	/**
-	 * Remove a SyncWrapper from the data to be written upon invokation of the
+	 * Remove a n Object from the data to be written upon invocation of the
 	 * write() method.
 	 * 
 	 * @param wrapper
 	 */
-	public void remove(SyncWrapper wrapper) {
-		this.writeableData.remove(wrapper);
+	public void remove(String tag) {
+		SyncWrapper toRemove = null;
+		for (SyncWrapper wrap : this.writeableData) {
+			if (wrap.getTag().equalsIgnoreCase(tag)) {
+				toRemove = wrap;
+				break;
+			}
+		}
+		if (toRemove != null) {
+			this.writeableData.remove(toRemove);
+		}
 	}
 
 	/**
@@ -74,6 +83,7 @@ public class SyncObjectIO extends ObjectIOStream {
 
 	/**
 	 * Manually insert a list of SyncWrappers
+	 * 
 	 * @param dataSet
 	 */
 	public void insertWriteableData(ArrayList<SyncWrapper> dataSet) {
@@ -90,6 +100,7 @@ public class SyncObjectIO extends ObjectIOStream {
 
 	/**
 	 * Check if an object can be found with the corresponding tag.
+	 * 
 	 * @param tag
 	 * @return boolean
 	 */
@@ -98,7 +109,9 @@ public class SyncObjectIO extends ObjectIOStream {
 	}
 
 	/**
-	 * Get the object linked to a tag. doesObjectExist() should be checked before to prevent NullPointers.
+	 * Get the object linked to a tag. doesObjectExist() should be checked
+	 * before to prevent NullPointers.
+	 * 
 	 * @param tag
 	 * @return Object
 	 */
