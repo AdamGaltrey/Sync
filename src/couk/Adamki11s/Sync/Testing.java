@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import couk.Adamki11s.IO.Objects.SyncObjectIO;
 import couk.Adamki11s.IO.Objects.SyncWrapper;
@@ -20,7 +21,34 @@ public class Testing {
 		//testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
 		//testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
 		//testSql(new File(root + File.separator + "database.db"));
+		serializeData(new File(root + File.separator + "Serialable.dat"));
+		deserializeData(new File(root + File.separator + "Serialable.dat"));
 	}
+	
+	public static void serializeData(File f){
+	    SyncObjectIO stream = new SyncObjectIO(f);
+	    ArrayList<String> arrayList = new ArrayList<String>();
+	    arrayList.add("TestString");
+	    arrayList.add("TestString2");
+	    stream.add("StringArrayList", arrayList);//Add the arraylist to the stream with the tag 'StringArrayList'
+	    stream.write();//Write the data to the file.
+	}
+	
+	public static void deserializeData(File f){
+        SyncObjectIO stream = new SyncObjectIO(f);
+        stream.read(); //load the data into memory
+        Object rawArrayList = null;//Setup our object
+        ArrayList<String> arrayList;
+        if(stream.doesObjectExist("StringArrayList")){
+            rawArrayList = stream.getObject("StringArrayList");
+            arrayList = (ArrayList<String>) rawArrayList;
+            for(String s : arrayList){
+                System.out.println("List objects : " + s);
+            }
+        } else {
+            System.out.println("Fatal! Could not find boject with tag : 'StringArrayList'");
+        }
+    }
 	
 	public static void testSql(File f){
 		SyncSQL sql = new SyncSQL(f);
@@ -55,9 +83,9 @@ public class Testing {
 
 	public static void testSyncObjectIO(File f) {
 		SyncObjectIO io = new SyncObjectIO(f);
-		io.add(new SyncWrapper("wrapper1", "testString"));
+		io.add("wrapper1", "testString");
 		testclass test = new testclass("test class string");
-		io.add(new SyncWrapper("classWrapper", test));
+		io.add("classWrapper", test);
 		io.write();
 		io.read();
 
