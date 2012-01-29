@@ -16,6 +16,10 @@ public class SyncItemStack implements Serializable {
 	private short durability;
 	private Map<SyncEnchantment, Integer> enchantments;
 
+	/**
+	 * A serializable implementation of Bukkit's ItemStack class.
+	 * @param bukkitItemStack
+	 */
 	public SyncItemStack(ItemStack bukkitItemStack) {
 		this.id = bukkitItemStack.getTypeId();
 		this.amount = bukkitItemStack.getAmount();

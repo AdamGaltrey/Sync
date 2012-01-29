@@ -11,7 +11,11 @@ public class SyncInventory implements Serializable {
 	private static final long serialVersionUID = -1281099042210796771L;
 	
 	private SyncItemStack[] inventory;
-	
+
+	/**
+	 * A serializable implementation of Bukkit's ItemStack[] (Inventory) class.
+	 * @param inventory
+	 */
 	public SyncInventory(ItemStack[] inventory){
 		for(int pos = 0; pos < inventory.length; pos++){
 			this.inventory[pos] = new SyncItemStack(inventory[pos]);

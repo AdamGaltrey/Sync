@@ -12,6 +12,11 @@ public class SyncLocation implements Serializable {
 	private double x, y, z;
 	private float yaw, pitch;
 	
+
+	/**
+	 * A serializable implementation of Bukkit's Location class.
+	 * @param bukkitLocation
+	 */
 	public SyncLocation(Location bukkitLocation){
 		this.worldName = bukkitLocation.getWorld().getName();
 		this.x = bukkitLocation.getX();

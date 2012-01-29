@@ -18,6 +18,10 @@ public class RuntimeData {
 		return (double)(getTotalMemory() - getFreeMemory());
 	}
 	
+	/**
+	 * Get the used memory percentage of the JVM.
+	 * @return
+	 */
 	public static double getUsedMemoryPercentage(){
 		double untruncated = (double)((getUsedMemory() / getMaxMemory()) * 100L);
 		return (double)Math.round(untruncated * 100) / 100; //2.D.P Precision

@@ -31,6 +31,9 @@ public class SyncDefaultConfiguration {
 		this.outputPath = outputPath;
 	}
 	
+	/**
+	 * Write the Configuration file to the file specified.
+	 */
 	public void write(){
 		SyncIO stream = new SyncIO(this.f);
 		stream.add("CheckForUpdates", this.checkForUpdates);
@@ -40,6 +43,10 @@ public class SyncDefaultConfiguration {
 		stream.write();
 	}
 	
+	/**
+	 * Load the configuration data from the configuration file.
+	 * @return SyncConfigurationData
+	 */
 	public SyncConfigurationData read(){
 		SyncIO stream = new SyncIO(this.f);
 		stream.read();

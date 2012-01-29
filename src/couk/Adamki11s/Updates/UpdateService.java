@@ -10,6 +10,11 @@ public class UpdateService {
 
 	private static HashSet<UpdatePackage> services = new HashSet<UpdatePackage>();
 
+	/**
+	 * Register your plugins update service.
+	 * @param updatePackage
+	 * @throws MultipleUpdatePackageException only one update package per plugin is allowed.
+	 */
 	public static void registerUpdateService(UpdatePackage updatePackage) throws MultipleUpdatePackageException {
 		if (isUpdateServiceRegistered(updatePackage.getPlugin())) {
 			throw new MultipleUpdatePackageException(updatePackage.getPlugin());
@@ -22,6 +27,11 @@ public class UpdateService {
 		return services;
 	}
 
+	/**
+	 * Check whether a plugin has an update service registered.
+	 * @param p
+	 * @return
+	 */
 	public static boolean isUpdateServiceRegistered(Plugin p) {
 		for (UpdatePackage up : services) {
 			if (up.getPlugin().getDescription().getName().equalsIgnoreCase(p.getDescription().getName())) {
@@ -31,6 +41,10 @@ public class UpdateService {
 		return false;
 	}
 
+	/**
+	 * Remove a plugins update service.
+	 * @param p
+	 */
 	public static void removeUpdateService(Plugin p) {
 		UpdatePackage removal = null;
 		for(UpdatePackage pack : services){
@@ -46,6 +60,11 @@ public class UpdateService {
 		}
 	}
 
+	/**
+	 * Modify the settings of a plugins update package.
+	 * @param newPackage
+	 * @param p
+	 */
 	public static void editUpdatePackage(UpdatePackage newPackage, Plugin p) {
 		if(!isUpdateServiceRegistered(p)){
 			throw new NullPointerException("Could not find an update package for plugin " + p.getDescription().getName());

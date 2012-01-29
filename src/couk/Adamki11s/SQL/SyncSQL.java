@@ -26,12 +26,18 @@ public class SyncSQL extends SQLOperations {
 		this.schema = SCHEMA.SQLite;
 	}
 	
+	/**
+	 * Reopens the SQL connection if it is closed. This is invoked upon every query.
+	 */
 	public void refreshConnection(){
 		if(connection == null){
 			initialise();
 		}
 	}
 	
+	/**
+	 * Manually close the connection.
+	 */
 	public void closeConnection(){
 		try {
 			this.connection.close();
@@ -40,6 +46,10 @@ public class SyncSQL extends SQLOperations {
 		}
 	}
 
+	/**
+	 * Initialise a new connection. This will automatically create the database file if you are using SQLite and it doesn't already exist.
+	 * @return
+	 */
 	public boolean initialise() {
 		if (schema == SCHEMA.MySQL) {
 			try {
@@ -76,16 +86,36 @@ public class SyncSQL extends SQLOperations {
 		return false;
 	}
 	
+	/**
+	 * Any query which does not return a ResultSet object. Such as : INSERT, UPDATE, CREATE TABLE...
+	 * @param query
+	 */
 	public void standardQuery(String query){
 		this.refreshConnection();
 		super.standardQuery(query, this.connection);
 	}
 	
+	/**
+	 * Any query which returns a ResultSet object. Such as : SELECT
+	 * Remember to close the ResultSet object aafter you are done with it to free up resources immediately.
+	 * -----
+	 * ResultSet set = sqlQuery("SELECT * FROM sometable;");
+	 * set.doSomething();
+	 * set.close();
+	 * -----
+	 * @param query
+	 * @return ResultSet
+	 */
 	public ResultSet sqlQuery(String query){
 		this.refreshConnection();
 		return super.sqlQuery(query, this.connection);
 	}
 	
+	/**
+	 * Check whether the tabl name exists.
+	 * @param table
+	 * @return
+	 */
 	public boolean doesTableExist(String table){
 		this.refreshConnection();
 		return super.checkTable(table, this.connection);

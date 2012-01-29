@@ -13,6 +13,14 @@ public class UpdatePackage {
 	private File f;
 	private Plugin plugin;
 	
+	/**
+	 * Creates an update package which is used to register an UpdateService for your plugin.
+	 * @param plugin
+	 * @param link
+	 * @param autoDownloadUpdates
+	 * @param reloadAfterUpdate
+	 * @param f
+	 */
 	public UpdatePackage(Plugin plugin, String link, boolean autoDownloadUpdates, boolean reloadAfterUpdate, File f) {
 		if(reloadAfterUpdate){
 			if(!f.getAbsoluteFile().toString().endsWith("plugins" + File.separator + "Update" + File.separator + plugin.getDescription().getName() + ".jar")){	

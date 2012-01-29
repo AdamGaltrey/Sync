@@ -14,6 +14,10 @@ public class SyncBlock implements Serializable {
 	private SyncLocation location;
 	private byte data;
 	
+	/**
+	 * A serializable implementation of Bukkit's Block class.
+	 * @param bukkitBlock
+	 */
 	public SyncBlock(Block bukkitBlock){
 		this.id = bukkitBlock.getTypeId();
 		this.location = Convertors.getSyncLocation(bukkitBlock.getLocation());

@@ -65,6 +65,10 @@ public class Sync extends JavaPlugin {
 		log.warning(prefix + " " + message);
 	}
 
+	/**
+	 * Return the SyncControl object for an easily accesible interface to other Sync Classes.
+	 * @return
+	 */
 	public SyncControl getSyncControl() {
 		return new SyncControl();
 	}

@@ -30,6 +30,18 @@ public class SyncBlockIO {
 		this.f = f;
 	}
 
+	/**
+	 * Saves all blocks inside the bounds of the two locations given to a file.
+	 * 
+	 * @param w
+	 *            Bukkit World object.
+	 * @param corner1
+	 *            Location 1
+	 * @param corner2
+	 *            Location 2
+	 * @throws SizeExceededException
+	 *             Size cannot exceed 256 blocks in any plain (x, y, z).
+	 */
 	public void saveBlockList(World w, Location corner1, Location corner2) throws SizeExceededException {
 		int x1 = Math.min(corner1.getBlockX(), corner2.getBlockX()), y1 = Math.min(corner1.getBlockY(), corner2.getBlockY()), z1 = Math.min(corner1.getBlockZ(),
 				corner2.getBlockZ()), x2 = Math.max(corner2.getBlockX(), corner2.getBlockX()), y2 = Math.max(corner2.getBlockY(), corner2.getBlockY()), z2 = Math.max(
@@ -45,6 +57,9 @@ public class SyncBlockIO {
 	private int startX, startY, startZ, width, height, length;
 	private byte[] blocks, blockData;
 
+	/**
+	 * Loads the saved block data from the file to memory.
+	 */
 	public void loadBlockData() {
 		try {
 			FileInputStream fis = new FileInputStream(f);
@@ -80,6 +95,14 @@ public class SyncBlockIO {
 		return tag;
 	}
 
+	/**
+	 * Get a list of all the current blocks in the world inside the location
+	 * bounds specified when saving.
+	 * 
+	 * @param w
+	 *            World
+	 * @return List<Block>
+	 */
 	public List<Block> getBlockList(World w) {
 		List<Block> list = new ArrayList<Block>();
 		for (int x = 0; x < width; x++) {
@@ -93,6 +116,10 @@ public class SyncBlockIO {
 		return list;
 	}
 
+	/**
+	 * Uses the block data from the saved file to add these blocks to the world.
+	 * @param w
+	 */
 	public void copyBlockListToWorld(World w) {
 
 		int index = 0;
@@ -101,8 +128,12 @@ public class SyncBlockIO {
 			for (int y = 0; y < height; y++) {
 				for (int z = 0; z < length; z++) {
 					Block b = w.getBlockAt(startX + x, startY + y, startZ + z);
+					if (b.getTypeId() != (int) blocks[index]) {
 						b.setTypeId((int) blocks[index]);
+					}
+					if (b.getData() != blockData[index]) {
 						b.setData(blockData[index]);
+					}
 					index++;
 				}
 			}

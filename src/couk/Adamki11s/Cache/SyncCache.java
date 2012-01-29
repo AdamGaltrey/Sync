@@ -6,14 +6,28 @@ public class SyncCache {
 
 	private HashMap<String, Object> reference = new HashMap<String, Object>();
 
+	/**
+	 * Adds an object to the cache with the corresponding Id.
+	 * @param id Reference
+	 * @param data Object
+	 */
 	public void add(String id, Object data) {
 		this.reference.put(id, data);
 	}
 
+	/**
+	 * Removes the Object with the corresponding Id from the cache.
+	 * @param id Reference
+	 */
 	public void remove(String id) {
 		this.reference.remove(id);
 	}
 
+	/**
+	 * Check if there is an object linked to an Id.
+	 * @param id
+	 * @return Whether an Object linked to the specified String exists.
+	 */
 	public boolean exists(String id) {
 		return this.reference.containsKey(id);
 	}
@@ -60,10 +74,17 @@ public class SyncCache {
 		return Boolean.parseBoolean(getString(key));
 	}
 
+	/**
+	 * Get all objects from the Cache.
+	 * @return Cache Objects
+	 */
 	public HashMap<String, Object> getCache() {
 		return this.reference;
 	}
 	
+	/**
+	 * Erase the contents of the Cache.
+	 */
 	public void erase(){
 		this.reference.clear();
 	}
