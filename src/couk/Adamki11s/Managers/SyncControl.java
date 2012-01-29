@@ -4,6 +4,7 @@ import java.io.File;
 
 import couk.Adamki11s.Cache.SyncCache;
 import couk.Adamki11s.Cryptography.SyncCryptography;
+import couk.Adamki11s.IO.Objects.SyncObjectIO;
 import couk.Adamki11s.IO.Standard.SyncIO;
 import couk.Adamki11s.SQL.SyncSQL;
 import couk.Adamki11s.Updates.SyncUpdater;
@@ -21,6 +22,10 @@ public class SyncControl {
 
 	public SyncIO getSyncIO(File f) {
 		return new SyncIO(f);
+	}
+	
+	public SyncObjectIO getSyncObjectIO(File f){
+		return new SyncObjectIO(f);
 	}
 
 	public SyncWeb getSyncWeb() {

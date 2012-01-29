@@ -21,18 +21,6 @@ public class SyncIO extends IOStream {
 		return this.f;
 	}
 	
-	public boolean exists(){
-		return f.exists();
-	}
-	
-	public void createNewFile() throws IOException{
-		f.createNewFile();
-	}
-	
-	public void deleteFile(){
-		f.delete();
-	}
-	
 	public void erase(){
 		this.writeableData.clear();
 		this.readableData.clear();
@@ -69,6 +57,15 @@ public class SyncIO extends IOStream {
 	 */
 	public void edit(String key, Object data){
 		add(key, data);
+	}
+	
+	/**
+	 * Check whether a key exists.
+	 * @param key
+	 * @return
+	 */
+	public boolean doesKeyExist(String key){
+		return this.readableData.containsKey(key);
 	}
 	
 	/**
