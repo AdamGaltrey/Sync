@@ -64,6 +64,7 @@ public class StatisticRegister {
 				io.add(entry.getKey(), (entry.getValue() + ss.getCustomStatistics().get(entry.getKey())));
 			}
 			io.write();
+			ss.resetContents();
 		}
 	}
 

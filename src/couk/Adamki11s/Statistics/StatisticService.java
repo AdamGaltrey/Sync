@@ -1,7 +1,10 @@
 package couk.Adamki11s.Statistics;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map.Entry;
 
 import org.bukkit.plugin.Plugin;
 
@@ -59,8 +62,32 @@ public class StatisticService {
 		this.commandsExecuted++;
 	}
 	
-	public void addCustomStatistic(String label, int statistic){
-		this.customStats.put(label, statistic);
+	public void addCustomStatistic(String label){
+		this.customStats.put(label, 0);
+	}
+	
+	public void incrementStatistic(String label){
+		this.customStats.put(label, (this.customStats.get(label) + 1));
+	}
+	
+	public void decrementStatistic(String label){
+		this.customStats.put(label, (this.customStats.get(label) - 1));
+	}
+	
+	public void editStatistic(String label, int value){
+		this.customStats.put(label, value);
+	}
+	
+	public void resetContents(){
+		this.commandsExecuted = 0;
+		List<String> labels = new ArrayList<String>();
+		for(Entry<String, Integer> entry : this.customStats.entrySet()){
+			labels.add(entry.getKey());
+		}
+		this.customStats.clear();
+		for(String label : labels){
+			this.customStats.put(label, 0);
+		}
 	}
 
 }
