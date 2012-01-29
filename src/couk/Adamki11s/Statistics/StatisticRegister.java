@@ -38,6 +38,7 @@ public class StatisticRegister {
 				for (Entry<String, Integer> entry : ss.getCustomStatistics().entrySet()) {
 					io.add(entry.getKey(), entry.getValue());
 				}
+				io.write();
 			}
 			SyncIO io = new SyncIO(pluginFile);
 			io.read();

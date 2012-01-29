@@ -29,7 +29,7 @@ public class FileConfigurations {
 				e.printStackTrace();
 			}
 		}
-		SyncIO io = new SyncIO(updatesConfiguration);
+		SyncIO io = new SyncIO(commandConfiguration);
 		io.read();
 		boolean allowStatTracking = io.getBoolean("AllowStatisticTracking");
 		int updateCycle = io.getInt("StatisticUpdateCycle");
