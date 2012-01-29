@@ -9,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import couk.Adamki11s.Configuration.FileConfigurations;
 import couk.Adamki11s.Configuration.FolderConfigurations;
 import couk.Adamki11s.Configuration.GlobalConfiguration;
-import couk.Adamki11s.Managers.SyncControl;
 import couk.Adamki11s.Statistics.RegisterCycle;
 import couk.Adamki11s.Updates.UpdateCycle;
 
@@ -63,14 +62,6 @@ public class Sync extends JavaPlugin {
 
 	public static void logGenericWarning(String message) {
 		log.warning(prefix + " " + message);
-	}
-
-	/**
-	 * Return the SyncControl object for an easily accesible interface to other Sync Classes.
-	 * @return
-	 */
-	public SyncControl getSyncControl() {
-		return new SyncControl();
 	}
 
 }

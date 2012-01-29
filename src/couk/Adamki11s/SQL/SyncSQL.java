@@ -97,7 +97,7 @@ public class SyncSQL extends SQLOperations {
 	
 	/**
 	 * Any query which returns a ResultSet object. Such as : SELECT
-	 * Remember to close the ResultSet object aafter you are done with it to free up resources immediately.
+	 * Remember to close the ResultSet object after you are done with it to free up resources immediately.
 	 * -----
 	 * ResultSet set = sqlQuery("SELECT * FROM sometable;");
 	 * set.doSomething();
@@ -112,7 +112,7 @@ public class SyncSQL extends SQLOperations {
 	}
 	
 	/**
-	 * Check whether the tabl name exists.
+	 * Check whether the table name exists.
 	 * @param table
 	 * @return
 	 */
