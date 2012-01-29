@@ -18,9 +18,8 @@ public class StatisticRegister {
 	protected static final File root = FolderConfigurations.pluginStatistics;
 
 	protected static void saveData() {
-		System.out.println("Running saveData() method");
 		for (StatisticService ss : services) {
-			System.out.println("Updating statistics for plugin : " + ss.getPlugin().getDescription().getName());
+			SyncLog.logInfo("Updating statistics for plugin : " + ss.getPlugin().getDescription().getName());
 			File pluginFolder = new File(root + File.separator + ss.getPlugin().getDescription().getName());
 			if (!pluginFolder.exists()) {
 				pluginFolder.mkdir();

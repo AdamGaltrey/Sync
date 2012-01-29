@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import couk.Adamki11s.IO.Standard.SyncIO;
+import couk.Adamki11s.Managers.SyncLog;
 
 public class FileConfigurations {
 
@@ -35,6 +36,10 @@ public class FileConfigurations {
 		int updateCycle = io.getInt("StatisticUpdateCycle");
 		GlobalConfiguration.allowStatisticTracking = allowStatTracking;
 		GlobalConfiguration.statisticUpdateCycle = updateCycle;
+		SyncLog.logInfo("--Sync Statistic Configuration--");
+		SyncLog.logInfo("Allow Statistic Tracking : " + allowStatTracking);
+		SyncLog.logInfo("Statistic Update Cycle : " + updateCycle + " minutes");
+		SyncLog.logInfo("--Sync Statistic Configuration--");
 	}
 
 	private static void updatesConfiguration() {
@@ -67,6 +72,13 @@ public class FileConfigurations {
 		GlobalConfiguration.reloadAfterUpdate = reloadAfterUpdate;
 		GlobalConfiguration.downloadPath = downloadPath;
 		GlobalConfiguration.updateCycle = updateCycle;
+		SyncLog.logInfo("--Sync Update Configuration--");
+		SyncLog.logInfo("Check For Updates : " + checkForUpdates);
+		SyncLog.logInfo("Update Check Cycle : " + updateCycle + " minutes");
+		SyncLog.logInfo("Auto Download Sync Updates : " + autoDownload);
+		SyncLog.logInfo("Reload After Sync Update : " + reloadAfterUpdate);
+		SyncLog.logInfo("Sync Download Path : " + downloadPath.getAbsolutePath());
+		SyncLog.logInfo("--Sync Update Configuration--");
 	}
 
 }

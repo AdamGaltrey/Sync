@@ -35,6 +35,7 @@ public class Sync extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		logGenericInfo("Loading Sync...");
 		plugin = this;
 		FolderConfigurations.folderChecks();
 		FileConfigurations.createConfigurations();
@@ -51,10 +52,9 @@ public class Sync extends JavaPlugin {
 		} else {
 			logGenericInfo("Sync Statistic tracking disabled.");
 		}
-		logGenericInfo("***** SYNC *****");
 		version = this.getDescription().getVersion();
 		logGenericInfo(prefix + " Sync Version " + version + " loaded successfully.");
-		logGenericInfo("***** SYNC *****");
+		logGenericInfo("Sync loaded successfully!");
 	}
 
 	public static void logGenericInfo(String message) {
