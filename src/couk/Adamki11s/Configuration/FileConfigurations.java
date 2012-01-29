@@ -7,10 +7,34 @@ import couk.Adamki11s.IO.Standard.SyncIO;
 
 public class FileConfigurations {
 
-	public static File updatesConfiguration = new File(FolderConfigurations.syncConfiguration + File.separator + "Updates.config");
+	public static File updatesConfiguration = new File(FolderConfigurations.syncConfiguration + File.separator + "Updates.config"),
+			commandConfiguration = new File(FolderConfigurations.syncConfiguration + File.separator + "PluginStatistics.config");
 
 	public static void createConfigurations() {
 		updatesConfiguration();
+		statisticsConfiguration();
+	}
+	
+	private static void statisticsConfiguration(){
+		if (!commandConfiguration.exists()) {
+			try {
+				commandConfiguration.createNewFile();
+				SyncIO io = new SyncIO(commandConfiguration);
+				io.add("AllowStatisticTracking", true);
+				io.addComment("Whether other plugins can register a statistic service with Sync.");
+				io.add("StatisticUpdateCycle", 30);
+				io.addComment("How often Sync will write all statistics for plugins registered with Sync to storage, in minutes. (Default = [30 mins])");
+				io.write();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		SyncIO io = new SyncIO(updatesConfiguration);
+		io.read();
+		boolean allowStatTracking = io.getBoolean("AllowStatisticTracking");
+		int updateCycle = io.getInt("StatisticUpdateCycle");
+		GlobalConfiguration.allowStatisticTracking = allowStatTracking;
+		GlobalConfiguration.statisticUpdateCycle = updateCycle;
 	}
 
 	private static void updatesConfiguration() {

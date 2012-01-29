@@ -10,6 +10,7 @@ import couk.Adamki11s.Configuration.FileConfigurations;
 import couk.Adamki11s.Configuration.FolderConfigurations;
 import couk.Adamki11s.Configuration.GlobalConfiguration;
 import couk.Adamki11s.Managers.SyncControl;
+import couk.Adamki11s.Statistics.RegisterCycle;
 import couk.Adamki11s.Updates.UpdateCycle;
 
 public class Sync extends JavaPlugin {
@@ -18,13 +19,16 @@ public class Sync extends JavaPlugin {
 	public static String version = "1.0.0";
 	public static final String prefix = "[Sync]";
 	public static Plugin plugin;
-	private static int updateCycleTaskId;
+	private static int updateCycleTaskId, statisticCycleTaskId;
 
 	@Override
 	public void onDisable() {
-		if (GlobalConfiguration.checkForUpdates) {
+		if (GlobalConfiguration.isCheckForUpdates()) {
 			Bukkit.getServer().getScheduler().cancelTask(updateCycleTaskId);
 			logGenericInfo("Update thread stopped.");
+		}
+		if(GlobalConfiguration.isAllowStatisticTracking()){
+			Bukkit.getServer().getScheduler().cancelTask(statisticCycleTaskId);
 		}
 		logGenericInfo(" Sync Version " + version + " un-loaded successfully.");
 	}
@@ -34,11 +38,18 @@ public class Sync extends JavaPlugin {
 		plugin = this;
 		FolderConfigurations.folderChecks();
 		FileConfigurations.createConfigurations();
-		if (GlobalConfiguration.checkForUpdates) {
-			logGenericInfo("Checking for updates every " + GlobalConfiguration.updateCycle + " minutes.");
-			updateCycleTaskId = Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new UpdateCycle(), 20L, (GlobalConfiguration.updateCycle * 60 * 20));
+		if (GlobalConfiguration.isCheckForUpdates()) {
+			logGenericInfo("Checking for updates every " + GlobalConfiguration.getUpdateCycle() + " minutes.");
+			updateCycleTaskId = Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new UpdateCycle(), 20L, (GlobalConfiguration.getUpdateCycle() * 60 * 20));
 		} else {
-			logGenericInfo("Not checking for updates");
+			logGenericInfo("Sync Update checking disabled.");
+		}
+		if (GlobalConfiguration.isAllowStatisticTracking()) {
+			logGenericInfo("Saving plugin statistics every " + GlobalConfiguration.getStatisticUpdateCycle() + " minutes.");
+			statisticCycleTaskId = Bukkit.getServer().getScheduler()
+					.scheduleAsyncRepeatingTask(this, new RegisterCycle(), 20L, (GlobalConfiguration.getStatisticUpdateCycle() * 60 * 20));
+		} else {
+			logGenericInfo("Sync Statistic tracking disabled.");
 		}
 		logGenericInfo("***** SYNC *****");
 		version = this.getDescription().getVersion();
@@ -49,7 +60,7 @@ public class Sync extends JavaPlugin {
 	public static void logGenericInfo(String message) {
 		log.info(prefix + " " + message);
 	}
-	
+
 	public static void logGenericWarning(String message) {
 		log.warning(prefix + " " + message);
 	}
