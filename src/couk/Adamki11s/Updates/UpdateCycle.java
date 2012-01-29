@@ -1,6 +1,5 @@
 package couk.Adamki11s.Updates;
 
-import java.io.File;
 import java.util.HashSet;
 
 import org.bukkit.Bukkit;

@@ -9,7 +9,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import couk.Adamki11s.Exceptions.SizeExceededException;
-import couk.Adamki11s.IO.Blocks.SyncBlockIO;
 import couk.Adamki11s.IO.Blocks.jnbt.ByteArrayTag;
 import couk.Adamki11s.IO.Blocks.jnbt.IntTag;
 import couk.Adamki11s.IO.Blocks.jnbt.NBTOutputStream;
@@ -20,12 +19,10 @@ public class AsyncSaver implements Runnable {
 
 	private World w;
 	private LinkedList<Block> blocks = new LinkedList<Block>();
-	private int x1, y1, z1, x2, y2, z2, width, height, length;
+	private int x1, y1, z1, width, height, length;
 	private boolean working = true;
-	private SyncBlockIO io;
 	private final File output;
 
-	private int bufferSize = 10000;
 	byte[] blockID;
 	byte[] blockData;
 
@@ -35,9 +32,6 @@ public class AsyncSaver implements Runnable {
 		this.x1 = x1;
 		this.y1 = y1;
 		this.z1 = z1;
-		this.x2 = x2;
-		this.y2 = y2;
-		this.z2 = z2;
 		width = x2 - x1;
 		height = y2 - y1;
 		length = z2 - z1;
@@ -53,7 +47,7 @@ public class AsyncSaver implements Runnable {
 	@Override
 	public void run() {
 		HashMap<String, Tag> tags = new HashMap<String, Tag>();
-		long start = System.nanoTime();
+		System.nanoTime();
 		int index = 0;
 		while (this.working) {
 			for (int x = 0; x < width; x++) {

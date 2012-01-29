@@ -7,11 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import couk.Adamki11s.IO.Objects.SyncObjectIO;
-import couk.Adamki11s.IO.Objects.SyncWrapper;
 import couk.Adamki11s.SQL.SyncSQL;
 import couk.Adamki11s.Updates.SyncUpdater;
 import couk.Adamki11s.Updates.SyncVersionData;
-import couk.Adamki11s.Utilities.RuntimeData;
 
 public class Testing {
 
@@ -34,6 +32,7 @@ public class Testing {
 	    stream.write();//Write the data to the file.
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static void deserializeData(File f){
         SyncObjectIO stream = new SyncObjectIO(f);
         stream.read(); //load the data into memory
