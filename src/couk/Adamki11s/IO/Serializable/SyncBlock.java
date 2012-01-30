@@ -2,8 +2,11 @@ package couk.Adamki11s.IO.Serializable;
 
 import java.io.Serializable;
 
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
+import couk.Adamki11s.Exceptions.NullWorldException;
 import couk.Adamki11s.IO.Convertors;
 
 public class SyncBlock implements Serializable {
@@ -20,8 +23,27 @@ public class SyncBlock implements Serializable {
 	 */
 	public SyncBlock(Block bukkitBlock){
 		this.id = bukkitBlock.getTypeId();
-		this.location = Convertors.getSyncLocation(bukkitBlock.getLocation());
+		this.location = new SyncLocation(bukkitBlock.getLocation());
 		this.data = bukkitBlock.getData();
+	}
+	
+	/**
+	 * Converts a SyncBlock object into a Bukkit Block object.
+	 * 
+	 * @param syncBlock
+	 * @return Block
+	 */
+	public Block getBukkitBlock() {
+		World w = Bukkit.getServer().getWorld(this.getLocation().getWorldName());
+		if (w == null) {
+			try {
+				throw new NullWorldException(this.getLocation().getWorldName());
+			} catch (NullWorldException e) {
+				e.printStackTrace();
+			}
+		}
+		Block b = w.getBlockAt((this.getLocation()).getBukkitLocation());
+		return b;
 	}
 
 	public int getId() {

@@ -27,11 +27,18 @@ public class SyncInventory implements Serializable {
 		}
 	}
 
+	/**
+	 * Converts a SyncInventory object into a Bukkit ItemStack[] (Inventory)
+	 * object.
+	 * 
+	 * @param syncInventory
+	 * @return ItemStack[] (Inventory)
+	 */
 	public ItemStack[] getContents() {
 		ItemStack[] stack = new ItemStack[this.inventory.length];
 		for (int pos = 0; pos < inventory.length; pos++) {
 			if (inventory[pos] != null && inventory[pos].getAmount() != 0 && inventory[pos].getId() != 0) {
-				stack[pos] = Convertors.getBukkitItemStack(this.inventory[pos]);
+				stack[pos] = (this.inventory[pos]).getBukkitItemStack();
 			} else {
 				continue;
 			}

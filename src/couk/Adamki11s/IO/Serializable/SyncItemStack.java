@@ -35,6 +35,27 @@ public class SyncItemStack implements Serializable {
 			}
 		}
 	}
+	
+	/**
+	 * Converts a SyncItemStack object into a Bukkit ItemStack object.
+	 * 
+	 * @param syncItemStack
+	 * @return ItemStack
+	 */
+	public ItemStack getBukkitItemStack() {
+		ItemStack is = new ItemStack(this.getId(), this.getAmount());
+		is.getData().setData(this.getData());
+		is.setDurability(this.getDurability());
+		if(this.getEnchantments() != null && !this.getEnchantments().isEmpty() && this.getEnchantments().size() > 0){
+		for (Entry<SyncEnchantment, Integer> e : this.getEnchantments().entrySet()) {
+			if (e.getKey() != null) {
+				Enchantment ench = Enchantment.getById(e.getKey().getId());
+				is.addEnchantment(ench, e.getValue());
+			}
+		}
+		}
+		return is;
+	}
 
 	public int getId() {
 		return id;
