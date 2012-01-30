@@ -9,23 +9,32 @@ import couk.Adamki11s.IO.Convertors;
 public class SyncInventory implements Serializable {
 
 	private static final long serialVersionUID = -1281099042210796771L;
-	
-	private SyncItemStack[] inventory;
+
+	private SyncItemStack[] inventory = new SyncItemStack[36];
 
 	/**
 	 * A serializable implementation of Bukkit's ItemStack[] (Inventory) class.
+	 * 
 	 * @param inventory
 	 */
-	public SyncInventory(ItemStack[] inventory){
-		for(int pos = 0; pos < inventory.length; pos++){
-			this.inventory[pos] = new SyncItemStack(inventory[pos]);
+	public SyncInventory(ItemStack[] inventory) {
+		for (int pos = 0; pos < inventory.length; pos++) {
+			if (inventory[pos] != null && inventory[pos].getAmount() != 0 && inventory[pos].getTypeId() != 0) {
+				this.inventory[pos] = new SyncItemStack(inventory[pos]);
+			} else {
+				continue;
+			}
 		}
 	}
-	
-	public ItemStack[] getContents(){
+
+	public ItemStack[] getContents() {
 		ItemStack[] stack = new ItemStack[this.inventory.length];
-		for(int pos = 0; pos < inventory.length; pos++){
-			stack[pos] = Convertors.getBukkitItemStack(this.inventory[pos]);
+		for (int pos = 0; pos < inventory.length; pos++) {
+			if (inventory[pos] != null && inventory[pos].getAmount() != 0 && inventory[pos].getId() != 0) {
+				stack[pos] = Convertors.getBukkitItemStack(this.inventory[pos]);
+			} else {
+				continue;
+			}
 		}
 		return stack;
 	}

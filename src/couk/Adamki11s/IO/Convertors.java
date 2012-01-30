@@ -20,7 +20,9 @@ import couk.Adamki11s.IO.Serializable.SyncLocation;
 public class Convertors {
 
 	/**
-	 * Converts a Bukkit Location object into a serializable SyncLocation object.
+	 * Converts a Bukkit Location object into a serializable SyncLocation
+	 * object.
+	 * 
 	 * @param bukkitLocation
 	 * @return SyncLocation
 	 */
@@ -30,6 +32,7 @@ public class Convertors {
 
 	/**
 	 * Converts a Bukkit Block object into a serializable SyncBlock object.
+	 * 
 	 * @param bukkitBlock
 	 * @return SyncBlock
 	 */
@@ -38,7 +41,9 @@ public class Convertors {
 	}
 
 	/**
-	 * Converts a Bukkit ItemStack object into a serializable SyncItemStack object.
+	 * Converts a Bukkit ItemStack object into a serializable SyncItemStack
+	 * object.
+	 * 
 	 * @param bukkitItemStack
 	 * @return SyncItemStack
 	 */
@@ -47,25 +52,30 @@ public class Convertors {
 	}
 
 	/**
-	 * Converts a Bukkit Enchantment object into a serializable SycnEnchantment object.
+	 * Converts a Bukkit Enchantment object into a serializable SycnEnchantment
+	 * object.
+	 * 
 	 * @param bukkitEnchantment
 	 * @return SyncEnchantment
 	 */
 	public static SyncEnchantment getSyncEnchantment(Enchantment bukkitEnchantment) {
 		return new SyncEnchantment(bukkitEnchantment);
 	}
-	
+
 	/**
-	 * Converts a Bukkit ItemStack[] (Inventory) object into a serializable SycnInventory object.
+	 * Converts a Bukkit ItemStack[] (Inventory) object into a serializable
+	 * SycnInventory object.
+	 * 
 	 * @param inventory
 	 * @return SyncItemStack
 	 */
-	public static SyncInventory getSyncInventory(ItemStack[] inventory){
+	public static SyncInventory getSyncInventory(ItemStack[] inventory) {
 		return new SyncInventory(inventory);
 	}
 
 	/**
 	 * Converts a SyncLocation object into a Bukkit Location object.
+	 * 
 	 * @param syncLocation
 	 * @return Location
 	 */
@@ -83,6 +93,7 @@ public class Convertors {
 
 	/**
 	 * Converts a SyncBlock object into a Bukkit Block object.
+	 * 
 	 * @param syncBlock
 	 * @return Block
 	 */
@@ -99,30 +110,35 @@ public class Convertors {
 		return b;
 	}
 
-
 	/**
 	 * Converts a SyncItemStack object into a Bukkit ItemStack object.
+	 * 
 	 * @param syncItemStack
 	 * @return ItemStack
 	 */
 	public static ItemStack getBukkitItemStack(SyncItemStack syncItemStack) {
 		ItemStack is = new ItemStack(syncItemStack.getId(), syncItemStack.getAmount());
 		is.getData().setData(syncItemStack.getData());
-		is.setDurability(syncItemStack.getDurability());	
-		for(Entry<SyncEnchantment, Integer> e : syncItemStack.getEnchantments().entrySet()){
-			Enchantment ench = Enchantment.getById(e.getKey().getId());
-			is.addEnchantment(ench, e.getValue());
+		is.setDurability(syncItemStack.getDurability());
+		if(syncItemStack.getEnchantments() != null && !syncItemStack.getEnchantments().isEmpty() && syncItemStack.getEnchantments().size() > 0){
+		for (Entry<SyncEnchantment, Integer> e : syncItemStack.getEnchantments().entrySet()) {
+			if (e.getKey() != null) {
+				Enchantment ench = Enchantment.getById(e.getKey().getId());
+				is.addEnchantment(ench, e.getValue());
+			}
+		}
 		}
 		return is;
 	}
-	
 
 	/**
-	 * Converts a SyncInventory object into a Bukkit ItemStack[] (Inventory) object.
+	 * Converts a SyncInventory object into a Bukkit ItemStack[] (Inventory)
+	 * object.
+	 * 
 	 * @param syncInventory
 	 * @return ItemStack[] (Inventory)
 	 */
-	public static ItemStack[] getBukkitInventory(SyncInventory syncInventory){
+	public static ItemStack[] getBukkitInventory(SyncInventory syncInventory) {
 		return syncInventory.getContents();
 	}
 

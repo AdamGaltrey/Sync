@@ -1,6 +1,7 @@
 package couk.Adamki11s.IO.Serializable;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,10 +15,11 @@ public class SyncItemStack implements Serializable {
 	private int id, amount;
 	private byte data;
 	private short durability;
-	private Map<SyncEnchantment, Integer> enchantments;
+	private Map<SyncEnchantment, Integer> enchantments = new HashMap<SyncEnchantment, Integer>();
 
 	/**
 	 * A serializable implementation of Bukkit's ItemStack class.
+	 * 
 	 * @param bukkitItemStack
 	 */
 	public SyncItemStack(ItemStack bukkitItemStack) {
@@ -25,8 +27,12 @@ public class SyncItemStack implements Serializable {
 		this.amount = bukkitItemStack.getAmount();
 		this.data = bukkitItemStack.getData().getData();
 		this.durability = bukkitItemStack.getDurability();
-		for (Entry<Enchantment, Integer> e : bukkitItemStack.getEnchantments().entrySet()) {
-			this.enchantments.put(new SyncEnchantment(e.getKey()), e.getValue());
+		if (bukkitItemStack.getEnchantments() != null && !bukkitItemStack.getEnchantments().isEmpty() && bukkitItemStack.getEnchantments().size() > 0) {
+			for (Entry<Enchantment, Integer> e : bukkitItemStack.getEnchantments().entrySet()) {
+				if (e.getKey() != null) {
+					this.enchantments.put(new SyncEnchantment(e.getKey()), e.getValue());
+				}
+			}
 		}
 	}
 
