@@ -1,7 +1,6 @@
 package couk.Adamki11s.Web;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SyncWeb {

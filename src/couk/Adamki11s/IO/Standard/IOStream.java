@@ -14,9 +14,9 @@ import couk.Adamki11s.IO.IDENTIFIER;
 
 public class IOStream extends GenericIO {
 
-	protected void write(File f, LinkedHashMap<String, Object> data) throws IOException {
+	protected void write(File f, LinkedHashMap<String, Object> data, boolean append) throws IOException {
 		try {
-			FileWriter fstream = new FileWriter(f);
+			FileWriter fstream = new FileWriter(f, append);
 			BufferedWriter fbw = new BufferedWriter(fstream);
 			for (Entry<String, Object> entry : data.entrySet()) {
 				if(entry.getValue() instanceof IDENTIFIER){

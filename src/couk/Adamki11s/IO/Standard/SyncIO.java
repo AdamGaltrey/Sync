@@ -12,9 +12,16 @@ public class SyncIO extends IOStream {
 	private File f;
 	private LinkedHashMap<String, Object> writeableData = new LinkedHashMap<String, Object>();
 	private LinkedHashMap<String, Object> readableData = new LinkedHashMap<String, Object>();
+	private final boolean append;
 	
 	public SyncIO(File f){
 		this.f = f;
+		this.append = false;
+	}
+	
+	public SyncIO(File f, boolean append){
+		this.f = f;
+		this.append = append;
 	}
 	
 	public File getFile(){
@@ -81,7 +88,7 @@ public class SyncIO extends IOStream {
 	 */
 	public void write(){
 		try {
-			super.write(this.f, this.writeableData);
+			super.write(this.f, this.writeableData, this.append);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
