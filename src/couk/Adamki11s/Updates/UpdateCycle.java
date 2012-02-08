@@ -22,13 +22,18 @@ public class UpdateCycle implements Runnable {
 			if (!p.getDescription().getVersion().equalsIgnoreCase(svd.getVersion())) {
 				if (pack.isAutoDownloadingUpdates()) {
 					Sync.logGenericInfo("Updating plugin " + p.getDescription().getName() + " from v" + p.getDescription().getVersion() + " >> v" + svd.getVersion() + "...");
-					WebFile.download(svd.getDownloadLink().toString(), pack.getFile());
+					if (!pack.getFile().exists()) {
+						WebFile.download(svd.getDownloadLink().toString(), pack.getFile());
+					}
 				} else {
-					Sync.logGenericWarning("Outdated plugin : " + p.getDescription().getName() + ". Running version " + p.getDescription().getVersion() + ". Newest version " + svd.getVersion());
+					Sync.logGenericWarning("Outdated plugin : " + p.getDescription().getName() + ". Running version " + p.getDescription().getVersion() + ". Newest version "
+							+ svd.getVersion());
 				}
-				if(pack.isReloadingAfterUpdate()){
+				if (pack.isReloadingAfterUpdate()) {
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "rl");
 				}
+			} else {
+				Sync.logGenericInfo("Plugin " + pack.getPlugin().getDescription().getName() + " is running the latest version (" + pack.getPlugin().getDescription().getVersion() + ")");
 			}
 		}
 		if (services.size() != 0) {

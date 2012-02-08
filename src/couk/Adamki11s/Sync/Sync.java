@@ -1,5 +1,6 @@
 package couk.Adamki11s.Sync;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
@@ -9,8 +10,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import couk.Adamki11s.Configuration.FileConfigurations;
 import couk.Adamki11s.Configuration.FolderConfigurations;
 import couk.Adamki11s.Configuration.GlobalConfiguration;
+import couk.Adamki11s.Exceptions.MultipleUpdatePackageException;
+import couk.Adamki11s.Statistics.BitlyTracker;
 import couk.Adamki11s.Statistics.RegisterCycle;
 import couk.Adamki11s.Updates.UpdateCycle;
+import couk.Adamki11s.Updates.UpdatePackage;
+import couk.Adamki11s.Updates.UpdateService;
 
 public class Sync extends JavaPlugin {
 
@@ -19,6 +24,8 @@ public class Sync extends JavaPlugin {
 	public static final String prefix = "[Sync]";
 	public static Plugin plugin;
 	private static int updateCycleTaskId, statisticCycleTaskId;
+	private final BitlyTracker tracker = new BitlyTracker();
+	private final String trackURL = "http://bit.ly/ys1Q7x";
 
 	@Override
 	public void onDisable() {
@@ -26,7 +33,7 @@ public class Sync extends JavaPlugin {
 			Bukkit.getServer().getScheduler().cancelTask(updateCycleTaskId);
 			logGenericInfo("Update thread stopped.");
 		}
-		if(GlobalConfiguration.isAllowStatisticTracking()){
+		if (GlobalConfiguration.isAllowStatisticTracking()) {
 			Bukkit.getServer().getScheduler().cancelTask(statisticCycleTaskId);
 		}
 		logGenericInfo(" Sync Version " + version + " un-loaded successfully.");
@@ -35,6 +42,7 @@ public class Sync extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		logGenericInfo("Loading Sync...");
+		this.tracker.pingURL(this.trackURL);
 		plugin = this;
 		FolderConfigurations.folderChecks();
 		FileConfigurations.createConfigurations();
@@ -54,6 +62,13 @@ public class Sync extends JavaPlugin {
 		version = this.getDescription().getVersion();
 		logGenericInfo(prefix + " Sync Version " + version + " loaded successfully.");
 		logGenericInfo("Sync loaded successfully!");
+		UpdatePackage pack = new UpdatePackage(plugin, "http://dev.bukkit.org/server-mods/sync/", GlobalConfiguration.isAutoDownloadUpdates(),
+				GlobalConfiguration.isReloadAfterUpdate(), new File(FileConfigurations.updatesConfiguration + File.separator + "Sync.jar"));
+		try {
+			UpdateService.registerUpdateService(pack);
+		} catch (MultipleUpdatePackageException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void logGenericInfo(String message) {

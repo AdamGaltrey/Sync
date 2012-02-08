@@ -53,7 +53,7 @@ public class FileConfigurations {
 				io.addComment("Whether to check for plugin updates. Other plugins which use Sync should have their own configurations.");
 				io.add("AutoDownloadUpdates", true);
 				io.addComment("Whether Sync will automatically download the newest version of itself");
-				io.add("ReloadAfterUpdate", true);
+				io.add("ReloadAfterUpdate", false);
 				io.addComment("Whether Sync will force a server reload after updating. This is recommended only if you want to force the new version onto the server automatically in which case the Download Path should be set to plugins/Updates");
 				io.add("DownloadPath", FolderConfigurations.syncUpdates.getAbsoluteFile());
 				io.addComment("The File path where Sync will download the newest version to. Do not start with / Eg : '/plugins/AFolder'. Make sure it is : 'plugins/AFolder'");

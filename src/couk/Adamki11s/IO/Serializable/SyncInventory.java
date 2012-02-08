@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import org.bukkit.inventory.ItemStack;
 
-import couk.Adamki11s.IO.Convertors;
-
 public class SyncInventory implements Serializable {
 
 	private static final long serialVersionUID = -1281099042210796771L;

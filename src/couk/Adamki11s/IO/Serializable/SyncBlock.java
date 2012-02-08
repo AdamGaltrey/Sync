@@ -7,7 +7,6 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import couk.Adamki11s.Exceptions.NullWorldException;
-import couk.Adamki11s.IO.Convertors;
 
 public class SyncBlock implements Serializable {
 

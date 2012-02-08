@@ -19,8 +19,12 @@ public class Testing {
 		//testSyncObjectIO(new File(root + File.separator + "Serialized.syn"));
 		//testUpdater("http://forums.bukkit.org/threads/fix-gen-misc-nightlight-v1-1-a-light-for-the-night-1-0-1-r1.25433/");
 		//testSql(new File(root + File.separator + "database.db"));
-		serializeData(new File(root + File.separator + "Serialable.dat"));
-		deserializeData(new File(root + File.separator + "Serialable.dat"));
+		//serializeData(new File(root + File.separator + "Serialable.dat"));
+		//deserializeData(new File(root + File.separator + "Serialable.dat"));
+	}
+	
+	public static void serializeZippedData(File f){
+		
 	}
 	
 	public static void serializeData(File f){
