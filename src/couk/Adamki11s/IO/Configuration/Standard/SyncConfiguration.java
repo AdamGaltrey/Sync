@@ -1,4 +1,4 @@
-package couk.Adamki11s.IO.Standard;
+package couk.Adamki11s.IO.Configuration.Standard;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,19 +7,19 @@ import java.util.UUID;
 import couk.Adamki11s.IO.IDENTIFIER;
 import couk.Adamki11s.IO.IDENTIFIER.ID;
 
-public class SyncIO extends IOStream {
+public class SyncConfiguration extends IOStream {
 	
 	private File f;
 	private LinkedHashMap<String, Object> writeableData = new LinkedHashMap<String, Object>();
 	private LinkedHashMap<String, Object> readableData = new LinkedHashMap<String, Object>();
 	private final boolean append;
 	
-	public SyncIO(File f){
+	public SyncConfiguration(File f){
 		this.f = f;
 		this.append = false;
 	}
 	
-	public SyncIO(File f, boolean append){
+	public SyncConfiguration(File f, boolean append){
 		this.f = f;
 		this.append = append;
 	}

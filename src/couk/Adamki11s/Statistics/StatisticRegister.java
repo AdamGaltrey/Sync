@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map.Entry;
 import couk.Adamki11s.Configuration.FolderConfigurations;
-import couk.Adamki11s.IO.Standard.SyncIO;
+import couk.Adamki11s.IO.Configuration.Standard.SyncConfiguration;
 import couk.Adamki11s.Managers.SyncLog;
 
 public class StatisticRegister {
@@ -31,7 +31,7 @@ public class StatisticRegister {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				SyncIO io = new SyncIO(pluginFile);
+				SyncConfiguration io = new SyncConfiguration(pluginFile);
 				io.add("FirstRunDate", getDate());
 				io.add("CommandsExecuted", 0);
 				for (Entry<String, Integer> entry : ss.getCustomStatistics().entrySet()) {
@@ -39,7 +39,7 @@ public class StatisticRegister {
 				}
 				io.write();
 			}
-			SyncIO io = new SyncIO(pluginFile);
+			SyncConfiguration io = new SyncConfiguration(pluginFile);
 			io.read();
 			int commandsExecuted = io.getInt("CommandsExecuted");
 			String firstDate = io.getString("FirstRunDate");

@@ -2,7 +2,7 @@ package couk.Adamki11s.Configuration;
 
 import java.io.File;
 
-import couk.Adamki11s.IO.Standard.SyncIO;
+import couk.Adamki11s.IO.Configuration.Standard.SyncConfiguration;
 
 public class SyncDefaultConfiguration {
 
@@ -35,7 +35,7 @@ public class SyncDefaultConfiguration {
 	 * Write the Configuration file to the file specified.
 	 */
 	public void write(){
-		SyncIO stream = new SyncIO(this.f);
+		SyncConfiguration stream = new SyncConfiguration(this.f);
 		stream.add("CheckForUpdates", this.checkForUpdates);
 		stream.add("AutoDownloadUpdates", this.autoDownloadUpdates);
 		stream.add("ReloadAfterUpdate", this.reloadAfterUpdate);
@@ -48,7 +48,7 @@ public class SyncDefaultConfiguration {
 	 * @return SyncConfigurationData
 	 */
 	public SyncConfigurationData read(){
-		SyncIO stream = new SyncIO(this.f);
+		SyncConfiguration stream = new SyncConfiguration(this.f);
 		stream.read();
 		boolean a = stream.getBoolean("AutoDownloadUpdates"), b = stream.getBoolean("CheckForUpdates"), c = stream.getBoolean("ReloadAfterUpdate");
 		String o = stream.getString("DownloadPath");

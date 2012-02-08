@@ -3,7 +3,7 @@ package couk.Adamki11s.Configuration;
 import java.io.File;
 import java.io.IOException;
 
-import couk.Adamki11s.IO.Standard.SyncIO;
+import couk.Adamki11s.IO.Configuration.Standard.SyncConfiguration;
 import couk.Adamki11s.Managers.SyncLog;
 
 public class FileConfigurations {
@@ -20,7 +20,7 @@ public class FileConfigurations {
 		if (!commandConfiguration.exists()) {
 			try {
 				commandConfiguration.createNewFile();
-				SyncIO io = new SyncIO(commandConfiguration);
+				SyncConfiguration io = new SyncConfiguration(commandConfiguration);
 				io.add("AllowStatisticTracking", true);
 				io.addComment("Whether other plugins can register a statistic service with Sync.");
 				io.add("StatisticUpdateCycle", 30);
@@ -30,7 +30,7 @@ public class FileConfigurations {
 				e.printStackTrace();
 			}
 		}
-		SyncIO io = new SyncIO(commandConfiguration);
+		SyncConfiguration io = new SyncConfiguration(commandConfiguration);
 		io.read();
 		boolean allowStatTracking = io.getBoolean("AllowStatisticTracking");
 		int updateCycle = io.getInt("StatisticUpdateCycle");
@@ -46,7 +46,7 @@ public class FileConfigurations {
 		if (!updatesConfiguration.exists()) {
 			try {
 				updatesConfiguration.createNewFile();
-				SyncIO io = new SyncIO(updatesConfiguration);
+				SyncConfiguration io = new SyncConfiguration(updatesConfiguration);
 				io.add("UpdateCheckCycle", 60);
 				io.addComment("How often Sync will check for updates for all plugins registered with Sync, in minutes. (Default = 1 hour [60 mins])");
 				io.add("CheckForUpdates", true);
@@ -62,7 +62,7 @@ public class FileConfigurations {
 				e.printStackTrace();
 			}
 		}
-		SyncIO io = new SyncIO(updatesConfiguration);
+		SyncConfiguration io = new SyncConfiguration(updatesConfiguration);
 		io.read();
 		boolean checkForUpdates = io.getBoolean("CheckForUpdates"), autoDownload = io.getBoolean("AutoDownloadUpdates"), reloadAfterUpdate = io.getBoolean("ReloadAfterUpdate");
 		File downloadPath = new File(io.getString("DownloadPath").replace("\\", File.separator));

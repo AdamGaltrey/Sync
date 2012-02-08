@@ -1,4 +1,4 @@
-package couk.Adamki11s.IO.Standard;
+package couk.Adamki11s.IO.Configuration.Standard;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
