@@ -1,11 +1,18 @@
 package couk.Adamki11s.Sync;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import couk.Adamki11s.IO.Configuration.Standard.SyncConfiguration;
+import couk.Adamki11s.IO.Configuration.Tree.Order.OrderMaster;
+import couk.Adamki11s.IO.Configuration.Tree.Order.OrderedObject;
 import couk.Adamki11s.IO.Objects.SyncObjectIO;
 import couk.Adamki11s.SQL.SyncSQL;
 import couk.Adamki11s.Updates.SyncUpdater;
@@ -22,11 +29,7 @@ public class Testing {
 		//serializeData(new File(root + File.separator + "Serialable.dat"));
 		//deserializeData(new File(root + File.separator + "Serialable.dat"));
 	}
-	
-	public static void serializeZippedData(File f){
-		
-	}
-	
+
 	public static void serializeData(File f){
 	    SyncObjectIO stream = new SyncObjectIO(f);
 	    ArrayList<String> arrayList = new ArrayList<String>();
