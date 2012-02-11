@@ -25,20 +25,21 @@ public class SyncSQL extends SQLOperations {
 		this.databaseFile = databaseFile;
 		this.schema = SCHEMA.SQLite;
 	}
-	
+
 	/**
-	 * Reopens the SQL connection if it is closed. This is invoked upon every query.
+	 * Reopens the SQL connection if it is closed. This is invoked upon every
+	 * query.
 	 */
-	public void refreshConnection(){
-		if(connection == null){
+	public void refreshConnection() {
+		if (connection == null) {
 			initialise();
 		}
 	}
-	
+
 	/**
 	 * Manually close the connection.
 	 */
-	public void closeConnection(){
+	public void closeConnection() {
 		try {
 			this.connection.close();
 		} catch (SQLException e) {
@@ -47,7 +48,9 @@ public class SyncSQL extends SQLOperations {
 	}
 
 	/**
-	 * Initialise a new connection. This will automatically create the database file if you are using SQLite and it doesn't already exist.
+	 * Initialise a new connection. This will automatically create the database
+	 * file if you are using SQLite and it doesn't already exist.
+	 * 
 	 * @return
 	 */
 	public boolean initialise() {
@@ -64,7 +67,7 @@ public class SyncSQL extends SQLOperations {
 				ex.printStackTrace();
 			}
 		} else {
-			if(!databaseFile.exists()){
+			if (!databaseFile.exists()) {
 				try {
 					databaseFile.createNewFile();
 				} catch (IOException e) {
@@ -85,38 +88,51 @@ public class SyncSQL extends SQLOperations {
 		}
 		return false;
 	}
-	
+
 	/**
-	 * Any query which does not return a ResultSet object. Such as : INSERT, UPDATE, CREATE TABLE...
+	 * Any query which does not return a ResultSet object. Such as : INSERT,
+	 * UPDATE, CREATE TABLE...
+	 * 
 	 * @param query
 	 */
-	public void standardQuery(String query){
+	public void standardQuery(String query) throws SQLException {
 		this.refreshConnection();
 		super.standardQuery(query, this.connection);
 	}
-	
+
 	/**
-	 * Any query which returns a ResultSet object. Such as : SELECT
-	 * Remember to close the ResultSet object after you are done with it to free up resources immediately.
+	 * Check whether a field/entry exists in a database.
+	 * @param query
+	 * @return Whether or not a result has been found in the query.
+	 * @throws SQLException
+	 */
+	public boolean existanceQuery(String query) throws SQLException {
+		this.refreshConnection();
+		return super.sqlQuery(query, this.connection).next();
+	}
+
+	/**
+	 * Any query which returns a ResultSet object. Such as : SELECT Remember to
+	 * close the ResultSet object after you are done with it to free up
+	 * resources immediately. ----- ResultSet set =
+	 * sqlQuery("SELECT * FROM sometable;"); set.doSomething(); set.close();
 	 * -----
-	 * ResultSet set = sqlQuery("SELECT * FROM sometable;");
-	 * set.doSomething();
-	 * set.close();
-	 * -----
+	 * 
 	 * @param query
 	 * @return ResultSet
 	 */
-	public ResultSet sqlQuery(String query){
+	public ResultSet sqlQuery(String query) throws SQLException {
 		this.refreshConnection();
 		return super.sqlQuery(query, this.connection);
 	}
-	
+
 	/**
 	 * Check whether the table name exists.
+	 * 
 	 * @param table
 	 * @return
 	 */
-	public boolean doesTableExist(String table){
+	public boolean doesTableExist(String table) throws SQLException {
 		this.refreshConnection();
 		return super.checkTable(table, this.connection);
 	}

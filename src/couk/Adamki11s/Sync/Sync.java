@@ -20,7 +20,7 @@ import couk.Adamki11s.Updates.UpdateService;
 public class Sync extends JavaPlugin {
 
 	public static Logger log = Logger.getLogger("Sync");
-	public static String version = "1.0.0";
+	public static String version;
 	public static final String prefix = "[Sync]";
 	public static Plugin plugin;
 	private static int updateCycleTaskId, statisticCycleTaskId;
@@ -43,6 +43,7 @@ public class Sync extends JavaPlugin {
 	public void onEnable() {
 		logGenericInfo("Loading Sync...");
 		this.tracker.pingURL(this.trackURL);
+		version = this.getDescription().getVersion();
 		plugin = this;
 		FolderConfigurations.folderChecks();
 		FileConfigurations.createConfigurations();
@@ -63,7 +64,7 @@ public class Sync extends JavaPlugin {
 		logGenericInfo(prefix + " Sync Version " + version + " loaded successfully.");
 		logGenericInfo("Sync loaded successfully!");
 		UpdatePackage pack = new UpdatePackage(plugin, "http://dev.bukkit.org/server-mods/sync/", GlobalConfiguration.isAutoDownloadUpdates(),
-				GlobalConfiguration.isReloadAfterUpdate(), new File(FileConfigurations.updatesConfiguration + File.separator + "Sync.jar"));
+				GlobalConfiguration.isReloadAfterUpdate(), new File(FolderConfigurations.syncUpdates + File.separator + "Sync.jar"));
 		try {
 			UpdateService.registerUpdateService(pack);
 		} catch (MultipleUpdatePackageException e) {
