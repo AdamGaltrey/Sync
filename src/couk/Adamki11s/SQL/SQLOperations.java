@@ -8,10 +8,11 @@ import java.sql.Statement;
 
 public class SQLOperations {
 
-	protected synchronized void standardQuery(String query, Connection connection) throws SQLException{
+	protected synchronized int standardQuery(String query, Connection connection) throws SQLException{
 		Statement statement = connection.createStatement();
-		statement.executeUpdate(query);
+		int rowsUpdated = statement.executeUpdate(query);
 		statement.close();
+		return rowsUpdated;
 	}
 
 	protected synchronized ResultSet sqlQuery(String query, Connection connection) throws SQLException {
