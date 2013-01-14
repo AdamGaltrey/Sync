@@ -51,7 +51,7 @@ public class SyncBlockIO {
 
 	private void saveBlocks(World w, int x1, int y1, int z1, int x2, int y2, int z2) throws SizeExceededException {
 		AsyncSaver Saver = new AsyncSaver(this.f, w, x1, y1, z1, x2, y2, z2);
-		Bukkit.getServer().getScheduler().scheduleAsyncDelayedTask(Sync.plugin, Saver, 0L);
+		Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(Sync.plugin, Saver, 0L);
 	}
 
 	private int startX, startY, startZ, width, height, length;

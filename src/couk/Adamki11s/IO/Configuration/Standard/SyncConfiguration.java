@@ -117,6 +117,14 @@ public class SyncConfiguration extends IOStream {
 		return this.writeableData;
 	}
 	
+	public void setReadableData(LinkedHashMap<String, Object> link){
+		this.readableData = link;
+	}
+	
+	public void setWriteableData(LinkedHashMap<String, Object> link){
+		this.writeableData = link;
+	}
+	
 	public Object getObject(String key){
 		return this.readableData.get(key);
 	}

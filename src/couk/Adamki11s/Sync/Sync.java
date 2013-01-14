@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import couk.Adamki11s.Configuration.FileConfigurations;
 import couk.Adamki11s.Configuration.FolderConfigurations;
@@ -23,18 +24,19 @@ public class Sync extends JavaPlugin {
 	public static String version;
 	public static final String prefix = "[Sync]";
 	public static Plugin plugin;
-	private static int updateCycleTaskId, statisticCycleTaskId;
+	BukkitTask updateCycleTaskId;
+	private static BukkitTask statisticCycleTaskId;
 	private final BitlyTracker tracker = new BitlyTracker();
 	private final String trackURL = "http://bit.ly/ys1Q7x";
 
 	@Override
 	public void onDisable() {
 		if (GlobalConfiguration.isCheckForUpdates()) {
-			Bukkit.getServer().getScheduler().cancelTask(updateCycleTaskId);
+			updateCycleTaskId.cancel();
 			logGenericInfo("Update thread stopped.");
 		}
 		if (GlobalConfiguration.isAllowStatisticTracking()) {
-			Bukkit.getServer().getScheduler().cancelTask(statisticCycleTaskId);
+			statisticCycleTaskId.cancel();
 		}
 		logGenericInfo(" Sync Version " + version + " un-loaded successfully.");
 	}
@@ -42,21 +44,21 @@ public class Sync extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		logGenericInfo("Loading Sync...");
-		this.tracker.pingURL(this.trackURL);
+		//this.tracker.pingURL(this.trackURL);
 		version = this.getDescription().getVersion();
 		plugin = this;
 		FolderConfigurations.folderChecks();
 		FileConfigurations.createConfigurations();
 		if (GlobalConfiguration.isCheckForUpdates()) {
 			logGenericInfo("Checking for updates every " + GlobalConfiguration.getUpdateCycle() + " minutes.");
-			updateCycleTaskId = Bukkit.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new UpdateCycle(), 20L, (GlobalConfiguration.getUpdateCycle() * 60 * 20));
+			updateCycleTaskId = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(this, new UpdateCycle(), 20L, (GlobalConfiguration.getUpdateCycle() * 60 * 20));
 		} else {
 			logGenericInfo("Sync Update checking disabled.");
 		}
 		if (GlobalConfiguration.isAllowStatisticTracking()) {
 			logGenericInfo("Saving plugin statistics every " + GlobalConfiguration.getStatisticUpdateCycle() + " minutes.");
 			statisticCycleTaskId = Bukkit.getServer().getScheduler()
-					.scheduleAsyncRepeatingTask(this, new RegisterCycle(), 20L, (GlobalConfiguration.getStatisticUpdateCycle() * 60 * 20));
+					.runTaskTimerAsynchronously(this, new RegisterCycle(), 20L, (GlobalConfiguration.getStatisticUpdateCycle() * 60 * 20));
 		} else {
 			logGenericInfo("Sync Statistic tracking disabled.");
 		}

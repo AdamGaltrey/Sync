@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class BitlyTracker {
 
-	private HashMap<String, URL> urls = new HashMap<String, URL>();
+	/*private HashMap<String, URL> urls = new HashMap<String, URL>();
 
 	public void addURL(String tag, URL url) {
 		this.urls.put(tag, url);
@@ -44,6 +44,6 @@ public class BitlyTracker {
 				ex.printStackTrace();
 			}
 		}
-	}
+	}*/
 
 }
